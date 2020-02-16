@@ -1,23 +1,21 @@
 <template>
-  <button @click="emitClick">OK</button>
+  <button @click="click">OK</button>
 </template>
 
 <script>
-import eventBus from './eventBus';
-
-export default {
-    name: "btn",
-    data() {
-        return {
-            string: 'mega',
-        }
-    },
-    methods: {
-        emitClick() {
-            this.$emit('increaseNumber');
+    export default {
+        name: "btn",
+        data() {
+            return {
+                string: '',
+            }
+        },
+        methods: {
+            click() {
+                this.$emit('click');
+            }
         }
     }
-}
 </script>
 
 <style>

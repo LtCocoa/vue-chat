@@ -4,17 +4,22 @@ const PORT = 8080;
 
 const io = socketIO(PORT);
 
-let number = 0;
+let messages = [];
 
 io.on('connection', function(socket) {
     console.log('New connection established');
 
-    socket.emit('pushNumber', number);
+    io.emit('allMessages', messages);
 
-    socket.on('onNumberChange', function(num) {
-        number++;
-        socket.emit('pushNumber', number);
+    socket.on('newMessage', function(msg) {
+        messages.push(msg);
+        io.emit('newMessage', msg);
     });
+
+    socket.on('clearMessages', () => {
+        messages = [];
+        io.emit('allMessages', messages);
+    })
 });
 
 console.log(`Server listening port ${PORT}`);
