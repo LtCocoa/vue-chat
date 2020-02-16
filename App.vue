@@ -13,6 +13,17 @@
     import btn from './btn';
     import messages from './Messages';
     import socketIOClient from 'socket.io-client';
+    const tmi = require('tmi.js');
+    const opts = {
+        identity: {
+            username: "AdmiralCocoa",
+            password: "oauth:5ere6csxlnvqqf2bamramal7zhyopd",
+        },
+        channels: [
+            "AdmiralBulldog"
+        ]
+    };
+    const clientTMI = new tmi.client(opts);
 
     const client = socketIOClient('http://localhost:8080');
 
@@ -36,6 +47,9 @@
             },
             clearMessages() {
                 client.emit('clearMessages');
+            },
+            pushTwitchMessage(msg) {
+                this.messages.push(msg);
             }
         },
         computed: {
@@ -55,6 +69,11 @@
             client.on('newMessage', (msg) => {
                 this.pushMessage(msg);
             });
+
+            clientTMI.on('message', this.pushTwitchMessage);
+            clientTMI.on('connected', onConnectedHandler);
+            // Connect to Twitch:
+            clientTMI.connect();
         }
     }
 </script>
