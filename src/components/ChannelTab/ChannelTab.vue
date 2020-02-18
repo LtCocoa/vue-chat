@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import messages from './Messages';
+import messages from '../Messages/Messages';
 const tmi = require('tmi.js');
 
 export default {

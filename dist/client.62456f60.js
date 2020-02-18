@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/vue/dist/vue.runtime.esm.js":[function(require,module,exports) {
+})({"../node_modules/vue/dist/vue.runtime.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 "use strict";
 
@@ -8546,22 +8546,7 @@ if (inBrowser) {
 
 var _default = Vue;
 exports.default = _default;
-},{}],"eventBus.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _vue = _interopRequireDefault(require("vue"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var eventBus = new _vue.default();
-var _default = eventBus;
-exports.default = _default;
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -8593,7 +8578,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -8628,7 +8613,7 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
 var Vue // late bind
 var version
 var map = Object.create(null)
@@ -8903,7 +8888,7 @@ function patchScopedSlots (instance) {
   }
 }
 
-},{}],"btn.vue":[function(require,module,exports) {
+},{}],"../src/components/btn/btn.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8928,14 +8913,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $2d5488 = exports.default || module.exports;
+        var $b6b63e = exports.default || module.exports;
       
-      if (typeof $2d5488 === 'function') {
-        $2d5488 = $2d5488.options;
+      if (typeof $b6b63e === 'function') {
+        $b6b63e = $b6b63e.options;
       }
     
         /* template */
-        Object.assign($2d5488, (function () {
+        Object.assign($b6b63e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -8962,9 +8947,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$2d5488', $2d5488);
+            api.createRecord('$b6b63e', $b6b63e);
           } else {
-            api.reload('$2d5488', $2d5488);
+            api.reload('$b6b63e', $b6b63e);
           }
         }
 
@@ -8975,7 +8960,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"Messages.vue":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../src/components/Messages/Messages.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9013,14 +8998,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $2790ad = exports.default || module.exports;
+        var $4eb4bb = exports.default || module.exports;
       
-      if (typeof $2790ad === 'function') {
-        $2790ad = $2790ad.options;
+      if (typeof $4eb4bb === 'function') {
+        $4eb4bb = $4eb4bb.options;
       }
     
         /* template */
-        Object.assign($2790ad, (function () {
+        Object.assign($4eb4bb, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -9061,7 +9046,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-2790ad",
+            _scopeId: "data-v-4eb4bb",
             functional: undefined
           };
         })());
@@ -9074,9 +9059,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$2790ad', $2790ad);
+            api.createRecord('$4eb4bb', $4eb4bb);
           } else {
-            api.reload('$2790ad', $2790ad);
+            api.reload('$4eb4bb', $4eb4bb);
           }
         }
 
@@ -9087,9 +9072,9 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
-},{}],"node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -9298,7 +9283,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"node_modules/tmi.js/lib/utils.js":[function(require,module,exports) {
+},{}],"../node_modules/tmi.js/lib/utils.js":[function(require,module,exports) {
 var process = require("process");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -9508,7 +9493,7 @@ var self = module.exports = {
     return username[0] === "#" ? username.slice(1) : username;
   }
 };
-},{"process":"node_modules/process/browser.js"}],"node_modules/tmi.js/lib/api.js":[function(require,module,exports) {
+},{"process":"../node_modules/process/browser.js"}],"../node_modules/tmi.js/lib/api.js":[function(require,module,exports) {
 var request = require("request");
 
 var _ = require("./utils");
@@ -9576,7 +9561,7 @@ var api = function api(options, callback) {
 };
 
 module.exports = api;
-},{"request":"node_modules/parcel-bundler/src/builtins/_empty.js","./utils":"node_modules/tmi.js/lib/utils.js"}],"node_modules/tmi.js/lib/commands.js":[function(require,module,exports) {
+},{"request":"../node_modules/parcel-bundler/src/builtins/_empty.js","./utils":"../node_modules/tmi.js/lib/utils.js"}],"../node_modules/tmi.js/lib/commands.js":[function(require,module,exports) {
 var _ = require("./utils"); // Enable followers-only mode on a channel..
 
 
@@ -10222,7 +10207,7 @@ module.exports = {
     });
   }
 };
-},{"./utils":"node_modules/tmi.js/lib/utils.js"}],"node_modules/tmi.js/lib/events.js":[function(require,module,exports) {
+},{"./utils":"../node_modules/tmi.js/lib/utils.js"}],"../node_modules/tmi.js/lib/events.js":[function(require,module,exports) {
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /*
@@ -10594,7 +10579,7 @@ function isObject(arg) {
 function isUndefined(arg) {
   return arg === void 0;
 }
-},{}],"node_modules/tmi.js/lib/logger.js":[function(require,module,exports) {
+},{}],"../node_modules/tmi.js/lib/logger.js":[function(require,module,exports) {
 var _ = require("./utils");
 
 var currentLevel = "info";
@@ -10628,7 +10613,7 @@ module.exports = {
   error: log("error"),
   fatal: log("fatal")
 };
-},{"./utils":"node_modules/tmi.js/lib/utils.js"}],"node_modules/tmi.js/lib/parser.js":[function(require,module,exports) {
+},{"./utils":"../node_modules/tmi.js/lib/utils.js"}],"../node_modules/tmi.js/lib/parser.js":[function(require,module,exports) {
 /*
     Copyright (c) 2013-2015, Fionn Kelleher All rights reserved.
 
@@ -10860,7 +10845,7 @@ module.exports = {
     return message;
   }
 };
-},{"./utils":"node_modules/tmi.js/lib/utils.js"}],"node_modules/tmi.js/lib/timer.js":[function(require,module,exports) {
+},{"./utils":"../node_modules/tmi.js/lib/utils.js"}],"../node_modules/tmi.js/lib/timer.js":[function(require,module,exports) {
 // Initialize the queue with a specific delay..
 function queue(defaultDelay) {
   this.queue = [];
@@ -10912,7 +10897,7 @@ queue.prototype.clear = function clear() {
 };
 
 exports.queue = queue;
-},{}],"node_modules/tmi.js/lib/client.js":[function(require,module,exports) {
+},{}],"../node_modules/tmi.js/lib/client.js":[function(require,module,exports) {
 var global = arguments[3];
 var api = require("./api");
 
@@ -12299,12 +12284,12 @@ if (typeof window !== "undefined") {
   window.tmi.client = client;
   window.tmi.Client = client;
 }
-},{"./api":"node_modules/tmi.js/lib/api.js","./commands":"node_modules/tmi.js/lib/commands.js","./events":"node_modules/tmi.js/lib/events.js","./logger":"node_modules/tmi.js/lib/logger.js","./parser":"node_modules/tmi.js/lib/parser.js","./timer":"node_modules/tmi.js/lib/timer.js","ws":"node_modules/parcel-bundler/src/builtins/_empty.js","./utils":"node_modules/tmi.js/lib/utils.js"}],"node_modules/tmi.js/index.js":[function(require,module,exports) {
+},{"./api":"../node_modules/tmi.js/lib/api.js","./commands":"../node_modules/tmi.js/lib/commands.js","./events":"../node_modules/tmi.js/lib/events.js","./logger":"../node_modules/tmi.js/lib/logger.js","./parser":"../node_modules/tmi.js/lib/parser.js","./timer":"../node_modules/tmi.js/lib/timer.js","ws":"../node_modules/parcel-bundler/src/builtins/_empty.js","./utils":"../node_modules/tmi.js/lib/utils.js"}],"../node_modules/tmi.js/index.js":[function(require,module,exports) {
 module.exports = {
   client: require("./lib/client"),
   Client: require("./lib/client")
 };
-},{"./lib/client":"node_modules/tmi.js/lib/client.js"}],"ChannelTab.vue":[function(require,module,exports) {
+},{"./lib/client":"../node_modules/tmi.js/lib/client.js"}],"../src/components/ChannelTab/ChannelTab.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12312,7 +12297,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Messages = _interopRequireDefault(require("./Messages"));
+var _Messages = _interopRequireDefault(require("../Messages/Messages"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12381,14 +12366,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $6c6f66 = exports.default || module.exports;
+        var $f59d6a = exports.default || module.exports;
       
-      if (typeof $6c6f66 === 'function') {
-        $6c6f66 = $6c6f66.options;
+      if (typeof $f59d6a === 'function') {
+        $f59d6a = $f59d6a.options;
       }
     
         /* template */
-        Object.assign($6c6f66, (function () {
+        Object.assign($f59d6a, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12477,7 +12462,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-6c6f66",
+            _scopeId: "data-v-f59d6a",
             functional: undefined
           };
         })());
@@ -12490,9 +12475,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$6c6f66', $6c6f66);
+            api.createRecord('$f59d6a', $f59d6a);
           } else {
-            api.reload('$6c6f66', $6c6f66);
+            api.reload('$f59d6a', $f59d6a);
           }
         }
 
@@ -12503,7 +12488,7 @@ render._withStripped = true
       
       }
     })();
-},{"./Messages":"Messages.vue","tmi.js":"node_modules/tmi.js/index.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/parseuri/index.js":[function(require,module,exports) {
+},{"../Messages/Messages":"../src/components/Messages/Messages.vue","tmi.js":"../node_modules/tmi.js/index.js","_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../node_modules/parseuri/index.js":[function(require,module,exports) {
 /**
  * Parses an URI
  *
@@ -12544,7 +12529,7 @@ module.exports = function parseuri(str) {
     return uri;
 };
 
-},{}],"node_modules/ms/index.js":[function(require,module,exports) {
+},{}],"../node_modules/ms/index.js":[function(require,module,exports) {
 /**
  * Helpers.
  */
@@ -12708,7 +12693,7 @@ function plural(ms, msAbs, n, name) {
   return Math.round(ms / n) + ' ' + name + (isPlural ? 's' : '');
 }
 
-},{}],"node_modules/debug/src/common.js":[function(require,module,exports) {
+},{}],"../node_modules/debug/src/common.js":[function(require,module,exports) {
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -12976,7 +12961,7 @@ function setup(env) {
 
 module.exports = setup;
 
-},{"ms":"node_modules/ms/index.js"}],"node_modules/debug/src/browser.js":[function(require,module,exports) {
+},{"ms":"../node_modules/ms/index.js"}],"../node_modules/debug/src/browser.js":[function(require,module,exports) {
 var process = require("process");
 /* eslint-env browser */
 
@@ -13153,7 +13138,7 @@ formatters.j = function (v) {
     return '[UnexpectedJSONParseError]: ' + error.message;
   }
 };
-},{"./common":"node_modules/debug/src/common.js","process":"node_modules/process/browser.js"}],"node_modules/socket.io-client/lib/url.js":[function(require,module,exports) {
+},{"./common":"../node_modules/debug/src/common.js","process":"../node_modules/process/browser.js"}],"../node_modules/socket.io-client/lib/url.js":[function(require,module,exports) {
 
 /**
  * Module dependencies.
@@ -13230,7 +13215,7 @@ function url (uri, loc) {
   return obj;
 }
 
-},{"parseuri":"node_modules/parseuri/index.js","debug":"node_modules/debug/src/browser.js"}],"node_modules/socket.io-client/node_modules/ms/index.js":[function(require,module,exports) {
+},{"parseuri":"../node_modules/parseuri/index.js","debug":"../node_modules/debug/src/browser.js"}],"../node_modules/socket.io-client/node_modules/ms/index.js":[function(require,module,exports) {
 /**
  * Helpers.
  */
@@ -13384,7 +13369,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],"node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/debug/src/debug.js":[function(require,module,exports) {
+},{}],"../node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/debug/src/debug.js":[function(require,module,exports) {
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -13611,7 +13596,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":"node_modules/socket.io-client/node_modules/ms/index.js"}],"node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/debug/src/browser.js":[function(require,module,exports) {
+},{"ms":"../node_modules/socket.io-client/node_modules/ms/index.js"}],"../node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/debug/src/browser.js":[function(require,module,exports) {
 var process = require("process");
 /**
  * This is the web browser implementation of `debug()`.
@@ -13775,7 +13760,7 @@ function localstorage() {
     return window.localStorage;
   } catch (e) {}
 }
-},{"./debug":"node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/debug/src/debug.js","process":"node_modules/process/browser.js"}],"node_modules/component-emitter/index.js":[function(require,module,exports) {
+},{"./debug":"../node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/debug/src/debug.js","process":"../node_modules/process/browser.js"}],"../node_modules/component-emitter/index.js":[function(require,module,exports) {
 
 /**
  * Expose `Emitter`.
@@ -13940,14 +13925,14 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],"node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"../node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"node_modules/base64-js/index.js":[function(require,module,exports) {
+},{}],"../node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -14101,7 +14086,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"node_modules/ieee754/index.js":[function(require,module,exports) {
+},{}],"../node_modules/ieee754/index.js":[function(require,module,exports) {
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -14187,14 +14172,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"node_modules/buffer/node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"../node_modules/buffer/node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"../node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -15987,7 +15972,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"node_modules/base64-js/index.js","ieee754":"node_modules/ieee754/index.js","isarray":"node_modules/buffer/node_modules/isarray/index.js","buffer":"node_modules/buffer/index.js"}],"node_modules/socket.io-client/node_modules/socket.io-parser/is-buffer.js":[function(require,module,exports) {
+},{"base64-js":"../node_modules/base64-js/index.js","ieee754":"../node_modules/ieee754/index.js","isarray":"../node_modules/buffer/node_modules/isarray/index.js","buffer":"../node_modules/buffer/index.js"}],"../node_modules/socket.io-client/node_modules/socket.io-parser/is-buffer.js":[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 
 module.exports = isBuf;
@@ -16010,7 +15995,7 @@ function isBuf(obj) {
           (withNativeArrayBuffer && (obj instanceof ArrayBuffer || isView(obj)));
 }
 
-},{"buffer":"node_modules/buffer/index.js"}],"node_modules/socket.io-client/node_modules/socket.io-parser/binary.js":[function(require,module,exports) {
+},{"buffer":"../node_modules/buffer/index.js"}],"../node_modules/socket.io-client/node_modules/socket.io-parser/binary.js":[function(require,module,exports) {
 /*global Blob,File*/
 
 /**
@@ -16153,7 +16138,7 @@ exports.removeBlobs = function(data, callback) {
   }
 };
 
-},{"isarray":"node_modules/isarray/index.js","./is-buffer":"node_modules/socket.io-client/node_modules/socket.io-parser/is-buffer.js"}],"node_modules/socket.io-client/node_modules/socket.io-parser/index.js":[function(require,module,exports) {
+},{"isarray":"../node_modules/isarray/index.js","./is-buffer":"../node_modules/socket.io-client/node_modules/socket.io-parser/is-buffer.js"}],"../node_modules/socket.io-client/node_modules/socket.io-parser/index.js":[function(require,module,exports) {
 
 /**
  * Module dependencies.
@@ -16570,7 +16555,7 @@ function error(msg) {
   };
 }
 
-},{"debug":"node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/debug/src/browser.js","component-emitter":"node_modules/component-emitter/index.js","./binary":"node_modules/socket.io-client/node_modules/socket.io-parser/binary.js","isarray":"node_modules/isarray/index.js","./is-buffer":"node_modules/socket.io-client/node_modules/socket.io-parser/is-buffer.js"}],"node_modules/has-cors/index.js":[function(require,module,exports) {
+},{"debug":"../node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/debug/src/browser.js","component-emitter":"../node_modules/component-emitter/index.js","./binary":"../node_modules/socket.io-client/node_modules/socket.io-parser/binary.js","isarray":"../node_modules/isarray/index.js","./is-buffer":"../node_modules/socket.io-client/node_modules/socket.io-parser/is-buffer.js"}],"../node_modules/has-cors/index.js":[function(require,module,exports) {
 
 /**
  * Module exports.
@@ -16589,7 +16574,7 @@ try {
   module.exports = false;
 }
 
-},{}],"node_modules/engine.io-client/lib/xmlhttprequest.js":[function(require,module,exports) {
+},{}],"../node_modules/engine.io-client/lib/xmlhttprequest.js":[function(require,module,exports) {
 // browser shim for xmlhttprequest module
 
 var hasCORS = require('has-cors');
@@ -16628,7 +16613,7 @@ module.exports = function (opts) {
   }
 };
 
-},{"has-cors":"node_modules/has-cors/index.js"}],"node_modules/engine.io-parser/lib/keys.js":[function(require,module,exports) {
+},{"has-cors":"../node_modules/has-cors/index.js"}],"../node_modules/engine.io-parser/lib/keys.js":[function(require,module,exports) {
 
 /**
  * Gets the keys for an object.
@@ -16649,7 +16634,7 @@ module.exports = Object.keys || function keys (obj){
   return arr;
 };
 
-},{}],"node_modules/has-binary2/index.js":[function(require,module,exports) {
+},{}],"../node_modules/has-binary2/index.js":[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 /* global Blob File */
 
@@ -16716,7 +16701,7 @@ function hasBinary (obj) {
   return false;
 }
 
-},{"isarray":"node_modules/isarray/index.js","buffer":"node_modules/buffer/index.js"}],"node_modules/arraybuffer.slice/index.js":[function(require,module,exports) {
+},{"isarray":"../node_modules/isarray/index.js","buffer":"../node_modules/buffer/index.js"}],"../node_modules/arraybuffer.slice/index.js":[function(require,module,exports) {
 /**
  * An abstraction for slicing an arraybuffer even when
  * ArrayBuffer.prototype.slice is not supported
@@ -16747,7 +16732,7 @@ module.exports = function(arraybuffer, start, end) {
   return result.buffer;
 };
 
-},{}],"node_modules/after/index.js":[function(require,module,exports) {
+},{}],"../node_modules/after/index.js":[function(require,module,exports) {
 module.exports = after
 
 function after(count, callback, err_cb) {
@@ -16777,7 +16762,7 @@ function after(count, callback, err_cb) {
 
 function noop() {}
 
-},{}],"node_modules/engine.io-parser/lib/utf8.js":[function(require,module,exports) {
+},{}],"../node_modules/engine.io-parser/lib/utf8.js":[function(require,module,exports) {
 /*! https://mths.be/utf8js v2.1.2 by @mathias */
 
 var stringFromCharCode = String.fromCharCode;
@@ -16989,7 +16974,7 @@ module.exports = {
 	decode: utf8decode
 };
 
-},{}],"node_modules/base64-arraybuffer/lib/base64-arraybuffer.js":[function(require,module,exports) {
+},{}],"../node_modules/base64-arraybuffer/lib/base64-arraybuffer.js":[function(require,module,exports) {
 /*
  * base64-arraybuffer
  * https://github.com/niklasvh/base64-arraybuffer
@@ -17064,7 +17049,7 @@ module.exports = {
     return arraybuffer;
   };
 })();
-},{}],"node_modules/blob/index.js":[function(require,module,exports) {
+},{}],"../node_modules/blob/index.js":[function(require,module,exports) {
 /**
  * Create a blob builder even when vendor prefixes exist
  */
@@ -17166,7 +17151,7 @@ module.exports = (function() {
   }
 })();
 
-},{}],"node_modules/engine.io-parser/lib/browser.js":[function(require,module,exports) {
+},{}],"../node_modules/engine.io-parser/lib/browser.js":[function(require,module,exports) {
 /**
  * Module dependencies.
  */
@@ -17773,7 +17758,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
   });
 };
 
-},{"./keys":"node_modules/engine.io-parser/lib/keys.js","has-binary2":"node_modules/has-binary2/index.js","arraybuffer.slice":"node_modules/arraybuffer.slice/index.js","after":"node_modules/after/index.js","./utf8":"node_modules/engine.io-parser/lib/utf8.js","base64-arraybuffer":"node_modules/base64-arraybuffer/lib/base64-arraybuffer.js","blob":"node_modules/blob/index.js"}],"node_modules/engine.io-client/lib/transport.js":[function(require,module,exports) {
+},{"./keys":"../node_modules/engine.io-parser/lib/keys.js","has-binary2":"../node_modules/has-binary2/index.js","arraybuffer.slice":"../node_modules/arraybuffer.slice/index.js","after":"../node_modules/after/index.js","./utf8":"../node_modules/engine.io-parser/lib/utf8.js","base64-arraybuffer":"../node_modules/base64-arraybuffer/lib/base64-arraybuffer.js","blob":"../node_modules/blob/index.js"}],"../node_modules/engine.io-client/lib/transport.js":[function(require,module,exports) {
 /**
  * Module dependencies.
  */
@@ -17936,7 +17921,7 @@ Transport.prototype.onClose = function () {
   this.emit('close');
 };
 
-},{"engine.io-parser":"node_modules/engine.io-parser/lib/browser.js","component-emitter":"node_modules/component-emitter/index.js"}],"node_modules/parseqs/index.js":[function(require,module,exports) {
+},{"engine.io-parser":"../node_modules/engine.io-parser/lib/browser.js","component-emitter":"../node_modules/component-emitter/index.js"}],"../node_modules/parseqs/index.js":[function(require,module,exports) {
 /**
  * Compiles a querystring
  * Returns string representation of the object
@@ -17975,7 +17960,7 @@ exports.decode = function(qs){
   return qry;
 };
 
-},{}],"node_modules/component-inherit/index.js":[function(require,module,exports) {
+},{}],"../node_modules/component-inherit/index.js":[function(require,module,exports) {
 
 module.exports = function(a, b){
   var fn = function(){};
@@ -17983,7 +17968,7 @@ module.exports = function(a, b){
   a.prototype = new fn;
   a.prototype.constructor = a;
 };
-},{}],"node_modules/yeast/index.js":[function(require,module,exports) {
+},{}],"../node_modules/yeast/index.js":[function(require,module,exports) {
 'use strict';
 
 var alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_'.split('')
@@ -18053,7 +18038,7 @@ yeast.encode = encode;
 yeast.decode = decode;
 module.exports = yeast;
 
-},{}],"node_modules/engine.io-client/lib/transports/polling.js":[function(require,module,exports) {
+},{}],"../node_modules/engine.io-client/lib/transports/polling.js":[function(require,module,exports) {
 /**
  * Module dependencies.
  */
@@ -18300,7 +18285,7 @@ Polling.prototype.uri = function () {
   return schema + '://' + (ipv6 ? '[' + this.hostname + ']' : this.hostname) + port + this.path + query;
 };
 
-},{"../transport":"node_modules/engine.io-client/lib/transport.js","parseqs":"node_modules/parseqs/index.js","engine.io-parser":"node_modules/engine.io-parser/lib/browser.js","component-inherit":"node_modules/component-inherit/index.js","yeast":"node_modules/yeast/index.js","debug":"node_modules/debug/src/browser.js","xmlhttprequest-ssl":"node_modules/engine.io-client/lib/xmlhttprequest.js"}],"node_modules/engine.io-client/lib/transports/polling-xhr.js":[function(require,module,exports) {
+},{"../transport":"../node_modules/engine.io-client/lib/transport.js","parseqs":"../node_modules/parseqs/index.js","engine.io-parser":"../node_modules/engine.io-parser/lib/browser.js","component-inherit":"../node_modules/component-inherit/index.js","yeast":"../node_modules/yeast/index.js","debug":"../node_modules/debug/src/browser.js","xmlhttprequest-ssl":"../node_modules/engine.io-client/lib/xmlhttprequest.js"}],"../node_modules/engine.io-client/lib/transports/polling-xhr.js":[function(require,module,exports) {
 /* global attachEvent */
 
 /**
@@ -18719,7 +18704,7 @@ function unloadHandler () {
   }
 }
 
-},{"xmlhttprequest-ssl":"node_modules/engine.io-client/lib/xmlhttprequest.js","./polling":"node_modules/engine.io-client/lib/transports/polling.js","component-emitter":"node_modules/component-emitter/index.js","component-inherit":"node_modules/component-inherit/index.js","debug":"node_modules/debug/src/browser.js"}],"node_modules/engine.io-client/lib/transports/polling-jsonp.js":[function(require,module,exports) {
+},{"xmlhttprequest-ssl":"../node_modules/engine.io-client/lib/xmlhttprequest.js","./polling":"../node_modules/engine.io-client/lib/transports/polling.js","component-emitter":"../node_modules/component-emitter/index.js","component-inherit":"../node_modules/component-inherit/index.js","debug":"../node_modules/debug/src/browser.js"}],"../node_modules/engine.io-client/lib/transports/polling-jsonp.js":[function(require,module,exports) {
 var global = arguments[3];
 /**
  * Module requirements.
@@ -18961,7 +18946,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
   }
 };
 
-},{"./polling":"node_modules/engine.io-client/lib/transports/polling.js","component-inherit":"node_modules/component-inherit/index.js"}],"node_modules/engine.io-client/lib/transports/websocket.js":[function(require,module,exports) {
+},{"./polling":"../node_modules/engine.io-client/lib/transports/polling.js","component-inherit":"../node_modules/component-inherit/index.js"}],"../node_modules/engine.io-client/lib/transports/websocket.js":[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 /**
  * Module dependencies.
@@ -19259,7 +19244,7 @@ WS.prototype.check = function () {
   return !!WebSocketImpl && !('__initialize' in WebSocketImpl && this.name === WS.prototype.name);
 };
 
-},{"../transport":"node_modules/engine.io-client/lib/transport.js","engine.io-parser":"node_modules/engine.io-parser/lib/browser.js","parseqs":"node_modules/parseqs/index.js","component-inherit":"node_modules/component-inherit/index.js","yeast":"node_modules/yeast/index.js","debug":"node_modules/debug/src/browser.js","ws":"node_modules/parcel-bundler/src/builtins/_empty.js","buffer":"node_modules/buffer/index.js"}],"node_modules/engine.io-client/lib/transports/index.js":[function(require,module,exports) {
+},{"../transport":"../node_modules/engine.io-client/lib/transport.js","engine.io-parser":"../node_modules/engine.io-parser/lib/browser.js","parseqs":"../node_modules/parseqs/index.js","component-inherit":"../node_modules/component-inherit/index.js","yeast":"../node_modules/yeast/index.js","debug":"../node_modules/debug/src/browser.js","ws":"../node_modules/parcel-bundler/src/builtins/_empty.js","buffer":"../node_modules/buffer/index.js"}],"../node_modules/engine.io-client/lib/transports/index.js":[function(require,module,exports) {
 /**
  * Module dependencies
  */
@@ -19314,7 +19299,7 @@ function polling (opts) {
   }
 }
 
-},{"xmlhttprequest-ssl":"node_modules/engine.io-client/lib/xmlhttprequest.js","./polling-xhr":"node_modules/engine.io-client/lib/transports/polling-xhr.js","./polling-jsonp":"node_modules/engine.io-client/lib/transports/polling-jsonp.js","./websocket":"node_modules/engine.io-client/lib/transports/websocket.js"}],"node_modules/indexof/index.js":[function(require,module,exports) {
+},{"xmlhttprequest-ssl":"../node_modules/engine.io-client/lib/xmlhttprequest.js","./polling-xhr":"../node_modules/engine.io-client/lib/transports/polling-xhr.js","./polling-jsonp":"../node_modules/engine.io-client/lib/transports/polling-jsonp.js","./websocket":"../node_modules/engine.io-client/lib/transports/websocket.js"}],"../node_modules/indexof/index.js":[function(require,module,exports) {
 
 var indexOf = [].indexOf;
 
@@ -19325,7 +19310,7 @@ module.exports = function(arr, obj){
   }
   return -1;
 };
-},{}],"node_modules/engine.io-client/lib/socket.js":[function(require,module,exports) {
+},{}],"../node_modules/engine.io-client/lib/socket.js":[function(require,module,exports) {
 /**
  * Module dependencies.
  */
@@ -20075,7 +20060,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
   return filteredUpgrades;
 };
 
-},{"./transports/index":"node_modules/engine.io-client/lib/transports/index.js","component-emitter":"node_modules/component-emitter/index.js","debug":"node_modules/debug/src/browser.js","indexof":"node_modules/indexof/index.js","engine.io-parser":"node_modules/engine.io-parser/lib/browser.js","parseuri":"node_modules/parseuri/index.js","parseqs":"node_modules/parseqs/index.js","./transport":"node_modules/engine.io-client/lib/transport.js"}],"node_modules/engine.io-client/lib/index.js":[function(require,module,exports) {
+},{"./transports/index":"../node_modules/engine.io-client/lib/transports/index.js","component-emitter":"../node_modules/component-emitter/index.js","debug":"../node_modules/debug/src/browser.js","indexof":"../node_modules/indexof/index.js","engine.io-parser":"../node_modules/engine.io-parser/lib/browser.js","parseuri":"../node_modules/parseuri/index.js","parseqs":"../node_modules/parseqs/index.js","./transport":"../node_modules/engine.io-client/lib/transport.js"}],"../node_modules/engine.io-client/lib/index.js":[function(require,module,exports) {
 
 module.exports = require('./socket');
 
@@ -20087,7 +20072,7 @@ module.exports = require('./socket');
  */
 module.exports.parser = require('engine.io-parser');
 
-},{"./socket":"node_modules/engine.io-client/lib/socket.js","engine.io-parser":"node_modules/engine.io-parser/lib/browser.js"}],"node_modules/to-array/index.js":[function(require,module,exports) {
+},{"./socket":"../node_modules/engine.io-client/lib/socket.js","engine.io-parser":"../node_modules/engine.io-parser/lib/browser.js"}],"../node_modules/to-array/index.js":[function(require,module,exports) {
 module.exports = toArray
 
 function toArray(list, index) {
@@ -20102,7 +20087,7 @@ function toArray(list, index) {
     return array
 }
 
-},{}],"node_modules/socket.io-client/lib/on.js":[function(require,module,exports) {
+},{}],"../node_modules/socket.io-client/lib/on.js":[function(require,module,exports) {
 
 /**
  * Module exports.
@@ -20128,7 +20113,7 @@ function on (obj, ev, fn) {
   };
 }
 
-},{}],"node_modules/component-bind/index.js":[function(require,module,exports) {
+},{}],"../node_modules/component-bind/index.js":[function(require,module,exports) {
 /**
  * Slice reference.
  */
@@ -20153,7 +20138,7 @@ module.exports = function(obj, fn){
   }
 };
 
-},{}],"node_modules/socket.io-client/lib/socket.js":[function(require,module,exports) {
+},{}],"../node_modules/socket.io-client/lib/socket.js":[function(require,module,exports) {
 
 /**
  * Module dependencies.
@@ -20593,7 +20578,7 @@ Socket.prototype.binary = function (binary) {
   return this;
 };
 
-},{"socket.io-parser":"node_modules/socket.io-client/node_modules/socket.io-parser/index.js","component-emitter":"node_modules/component-emitter/index.js","to-array":"node_modules/to-array/index.js","./on":"node_modules/socket.io-client/lib/on.js","component-bind":"node_modules/component-bind/index.js","debug":"node_modules/debug/src/browser.js","parseqs":"node_modules/parseqs/index.js","has-binary2":"node_modules/has-binary2/index.js"}],"node_modules/backo2/index.js":[function(require,module,exports) {
+},{"socket.io-parser":"../node_modules/socket.io-client/node_modules/socket.io-parser/index.js","component-emitter":"../node_modules/component-emitter/index.js","to-array":"../node_modules/to-array/index.js","./on":"../node_modules/socket.io-client/lib/on.js","component-bind":"../node_modules/component-bind/index.js","debug":"../node_modules/debug/src/browser.js","parseqs":"../node_modules/parseqs/index.js","has-binary2":"../node_modules/has-binary2/index.js"}],"../node_modules/backo2/index.js":[function(require,module,exports) {
 
 /**
  * Expose `Backoff`.
@@ -20680,7 +20665,7 @@ Backoff.prototype.setJitter = function(jitter){
 };
 
 
-},{}],"node_modules/socket.io-client/lib/manager.js":[function(require,module,exports) {
+},{}],"../node_modules/socket.io-client/lib/manager.js":[function(require,module,exports) {
 
 /**
  * Module dependencies.
@@ -21255,7 +21240,7 @@ Manager.prototype.onreconnect = function () {
   this.emitAll('reconnect', attempt);
 };
 
-},{"engine.io-client":"node_modules/engine.io-client/lib/index.js","./socket":"node_modules/socket.io-client/lib/socket.js","component-emitter":"node_modules/component-emitter/index.js","socket.io-parser":"node_modules/socket.io-client/node_modules/socket.io-parser/index.js","./on":"node_modules/socket.io-client/lib/on.js","component-bind":"node_modules/component-bind/index.js","debug":"node_modules/debug/src/browser.js","indexof":"node_modules/indexof/index.js","backo2":"node_modules/backo2/index.js"}],"node_modules/socket.io-client/lib/index.js":[function(require,module,exports) {
+},{"engine.io-client":"../node_modules/engine.io-client/lib/index.js","./socket":"../node_modules/socket.io-client/lib/socket.js","component-emitter":"../node_modules/component-emitter/index.js","socket.io-parser":"../node_modules/socket.io-client/node_modules/socket.io-parser/index.js","./on":"../node_modules/socket.io-client/lib/on.js","component-bind":"../node_modules/component-bind/index.js","debug":"../node_modules/debug/src/browser.js","indexof":"../node_modules/indexof/index.js","backo2":"../node_modules/backo2/index.js"}],"../node_modules/socket.io-client/lib/index.js":[function(require,module,exports) {
 
 /**
  * Module dependencies.
@@ -21351,7 +21336,7 @@ exports.connect = lookup;
 exports.Manager = require('./manager');
 exports.Socket = require('./socket');
 
-},{"./url":"node_modules/socket.io-client/lib/url.js","socket.io-parser":"node_modules/socket.io-client/node_modules/socket.io-parser/index.js","./manager":"node_modules/socket.io-client/lib/manager.js","debug":"node_modules/debug/src/browser.js","./socket":"node_modules/socket.io-client/lib/socket.js"}],"App.vue":[function(require,module,exports) {
+},{"./url":"../node_modules/socket.io-client/lib/url.js","socket.io-parser":"../node_modules/socket.io-client/node_modules/socket.io-parser/index.js","./manager":"../node_modules/socket.io-client/lib/manager.js","debug":"../node_modules/debug/src/browser.js","./socket":"../node_modules/socket.io-client/lib/socket.js"}],"../src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -21359,11 +21344,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _eventBus = _interopRequireDefault(require("./eventBus"));
+var _btn = _interopRequireDefault(require("./components/btn/btn"));
 
-var _btn = _interopRequireDefault(require("./btn"));
-
-var _ChannelTab = _interopRequireDefault(require("./ChannelTab"));
+var _ChannelTab = _interopRequireDefault(require("./components/ChannelTab/ChannelTab"));
 
 var _socket = _interopRequireDefault(require("socket.io-client"));
 
@@ -21409,14 +21392,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $878f16 = exports.default || module.exports;
+        var $61e94f = exports.default || module.exports;
       
-      if (typeof $878f16 === 'function') {
-        $878f16 = $878f16.options;
+      if (typeof $61e94f === 'function') {
+        $61e94f = $61e94f.options;
       }
     
         /* template */
-        Object.assign($878f16, (function () {
+        Object.assign($61e94f, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -21447,7 +21430,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-878f16",
+            _scopeId: "data-v-61e94f",
             functional: undefined
           };
         })());
@@ -21460,9 +21443,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$878f16', $878f16);
+            api.createRecord('$61e94f', $61e94f);
           } else {
-            api.reload('$878f16', $878f16);
+            api.reload('$61e94f', $61e94f);
           }
         }
 
@@ -21473,14 +21456,12 @@ render._withStripped = true
       
       }
     })();
-},{"./eventBus":"eventBus.js","./btn":"btn.vue","./ChannelTab":"ChannelTab.vue","socket.io-client":"node_modules/socket.io-client/lib/index.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"client.js":[function(require,module,exports) {
+},{"./components/btn/btn":"../src/components/btn/btn.vue","./components/ChannelTab/ChannelTab":"../src/components/ChannelTab/ChannelTab.vue","socket.io-client":"../node_modules/socket.io-client/lib/index.js","_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"client.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
 
-var _App = _interopRequireDefault(require("./App.vue"));
-
-var _eventBus = _interopRequireDefault(require("./eventBus"));
+var _App = _interopRequireDefault(require("../src/App.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21490,7 +21471,7 @@ new _vue.default({
     return h(_App.default);
   }
 });
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"App.vue","./eventBus":"eventBus.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"../node_modules/vue/dist/vue.runtime.esm.js","../src/App.vue":"../src/App.vue"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -21518,7 +21499,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63251" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59571" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -21694,5 +21675,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","client.js"], null)
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","client.js"], null)
 //# sourceMappingURL=/client.62456f60.js.map

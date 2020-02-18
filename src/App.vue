@@ -10,9 +10,8 @@
 </template>
 
 <script>
-    import eventBus from './eventBus';
-    import btn from './btn';
-    import channelTab from './ChannelTab';
+    import btn from './components/btn/btn';
+    import channelTab from './components/ChannelTab/ChannelTab';
     import socketIOClient from 'socket.io-client';
     
     const client = socketIOClient('http://192.168.1.65:8080');

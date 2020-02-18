@@ -1,6 +1,5 @@
 import Vue from 'vue';
-import App from './App.vue'
-import eventBus from './eventBus';
+import App from '../src/App.vue'
 
 new Vue({
     el: "#app",
