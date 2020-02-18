@@ -1,79 +1,69 @@
 <template>
-    <div>
-        <messages></messages>
-        <p v-for="message in messages">{{message}}</p>
-        <input type="text" v-model="input"/>
-        <btn @click="sendMessage"></btn>
-        <button @click="clearMessages">clear</button>
+    <div id="main-container">
+        <div class="new-channel-tab-wrapper">
+            <button class="new-channel-tab" @click="newChannelTab">+</button>
+        </div>
+        <div id="channel-tab-wrapper">
+            <channelTab v-for="(tab, index) in channelTabs" v-bind:key="tab.id"></channelTab>
+        </div>
     </div>
 </template>
 
 <script>
     import eventBus from './eventBus';
     import btn from './btn';
-    import messages from './Messages';
+    import channelTab from './ChannelTab';
     import socketIOClient from 'socket.io-client';
-    const tmi = require('tmi.js');
-    const opts = {
-        identity: {
-            username: "AdmiralCocoa",
-            password: "oauth:5ere6csxlnvqqf2bamramal7zhyopd",
-        },
-        channels: [
-            "AdmiralBulldog"
-        ]
-    };
-    const clientTMI = new tmi.client(opts);
-
-    const client = socketIOClient('http://localhost:8080');
+    
+    const client = socketIOClient('http://192.168.1.65:8080');
 
     export default {
         name: "App",
         data() {
-            return {
-                messages: [],
-                input: ''
+            return {      
+                channelTabs: []
             }
         },
         methods: {
-            sendMessage() {
-                if(this.input != '') {
-                    client.emit('newMessage', this.input);
-                }
-                this.input = '';
-            },
-            pushMessage(msg) {
-                this.messages.push(msg);
-            },
-            clearMessages() {
-                client.emit('clearMessages');
-            },
-            pushTwitchMessage(msg) {
-                this.messages.push(msg);
+            newChannelTab() {
+                let newTabId = this.channelTabs.length > 0 ? this.channelTabs[this.channelTabs.length - 1].id + 1 : 1;
+                this.channelTabs.push({id: newTabId});
+                console.log(this.channelTabs);
             }
-        },
+        },        
         computed: {
             getNumber() {
                 console.log('called computed');
                 return this.messages;
-            }
+            },
         },
         components: {
             btn,
-            messages
+            channelTab,
         },
-        mounted() {
-            client.on('allMessages', (messages) => {
-                this.messages = messages;
-            });
-            client.on('newMessage', (msg) => {
-                this.pushMessage(msg);
-            });
-
-            clientTMI.on('message', this.pushTwitchMessage);
-            clientTMI.on('connected', onConnectedHandler);
-            // Connect to Twitch:
-            clientTMI.connect();
-        }
     }
 </script>
+
+<style scoped>
+    #main-container {
+        padding: 20px;
+    }
+
+    .new-channel-tab-wrapper {
+        display: flex;
+        position: fixed;
+    }
+
+    #channel-tab-wrapper {
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 80px auto 0;
+    }
+
+    .new-channel-tab {
+        padding: 10px 20px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+</style>

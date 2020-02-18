@@ -4,8 +4,5 @@ import eventBus from './eventBus';
 
 new Vue({
     el: "#app",
-    created() {
-        
-    },
     render: h => h(App)
 });

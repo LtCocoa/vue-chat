@@ -1,8 +1,9 @@
 const socketIO = require('socket.io');
+const http = require('http').createServer().listen(8080, '0.0.0.0');
 
 const PORT = 8080;
 
-const io = socketIO(PORT);
+const io = socketIO().listen(http);
 
 let messages = [];
 
