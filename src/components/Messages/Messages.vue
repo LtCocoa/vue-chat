@@ -4,7 +4,7 @@
             <p>{{channelName}}</p>
         </div>
         <div id="messages">
-            <div v-for="(message, index) in messages" class="message">
+            <div v-for="(message, index) in messages" class="message" :style="kekwStyle(message.msg)">
                 <a class="messages-name" :style="getNameColor(index)" :href='`https://twitch.tv/${message.context["display-name"]}`'>{{message.context["display-name"]}}</a>:
                 <span>{{message.msg}}</span>
             </div>
@@ -25,10 +25,18 @@ export default {
     },
     methods: {
         getNameColor(index) {
-                return {
-                    color: this.messages[index].context.color,
-                }
+            return {
+                color: this.messages[index].context.color,
             }
+        },
+        kekwStyle(msg) {
+            return {
+                backgroundColor: msg === "KEKW" ? "grey" : "inherit",
+            }
+        }
+    },
+    computed: {
+        
     }
 }
 </script>

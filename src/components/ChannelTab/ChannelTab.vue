@@ -4,7 +4,7 @@
             <button class="button-disconnect" @click="leaveChannel">x</button>
         </div>
         <div v-show="!connected">
-            <input type="text" v-model="channelName"/>
+            <input type="text" v-model.lazy="channelName" @keyup.enter="joinChannel"/>
             <button class="button-connect" @click="joinChannel">Connect</button>
         </div>
         <messages :messages="messages" :channelName="channelName"></messages>
@@ -36,17 +36,13 @@ export default {
             this.opts.channels.push(this.channelName);
             this.clientTMI = new tmi.client(this.opts);
             this.clientTMI.on('message', this.pushTwitchMessage);
-            this.clientTMI.connect()
-                .then(function(value) {
-                    console.log("SUCCESS");
-                }, function(reason) {
-                    console.log("ERROR");
-                });
+            this.clientTMI.connect();
             this.connected = true;
         },
         leaveChannel() {
             this.clientTMI.disconnect();
             this.connected = false;
+            this.$emit('closeTab');
         },
         pushTwitchMessage(target, context, msg, self) {
             this.messages.push({context, msg});

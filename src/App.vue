@@ -4,7 +4,7 @@
             <button class="new-channel-tab" @click="newChannelTab">+</button>
         </div>
         <div id="channel-tab-wrapper">
-            <channelTab v-for="(tab, index) in channelTabs" v-bind:key="tab.id"></channelTab>
+            <channelTab v-for="(tab, index) in channelTabs" v-bind:key="tab.id" @closeTab="deleteTab(index)"></channelTab>
         </div>
     </div>
 </template>
@@ -28,6 +28,9 @@
                 let newTabId = this.channelTabs.length > 0 ? this.channelTabs[this.channelTabs.length - 1].id + 1 : 1;
                 this.channelTabs.push({id: newTabId});
                 console.log(this.channelTabs);
+            },
+            deleteTab(tabIndex) {
+                this.channelTabs.splice(tabIndex, 1);
             }
         },        
         computed: {
@@ -54,7 +57,7 @@
     }
 
     #channel-tab-wrapper {
-        display: inline-flex;
+        display: flex;
         flex-wrap: wrap;
         justify-content: center;
         margin: 80px auto 0;
