@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "watch": "parcel serve index.html --port 8081"
+    "start": "nodemon --watch src/server src/server/server.js",
+    "watch": "parcel serve public/index.html --port 8081"
   },
   "keywords": [],
   "author": "",
