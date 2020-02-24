@@ -1,7 +1,7 @@
 <template>
     <div id="main-container">
-        <div id="room-list-container" v-if="user.selectedRoom == ''">
-            <input type="text" placeholder="username" id="" v-model.lazy="user.name">
+        <div id="room-list-container" >
+            <input type="text" placeholder="username" id="" v-model.lazy="user.name" @change="changeUsername">
             <h1>room list</h1>
             <ul>
                 <li v-for="room in rooms" :key="room.id" @click="joinRoom(room)">
@@ -9,11 +9,10 @@
                 </li>
             </ul>
         </div>
-        <div id="chat-wrapper" v-if="user.selectedRoom !== ''">
+        <div id="chat-wrapper" >
             <div id="room-header">
-                <h1>{{user.selectedRoom}}</h1>
-                <button id="button-leave-room" @click="leaveRoom">x</button>
-            </div>
+                <h1>{{!user.selectedRoom ? 'Выбор комнаты': user.selectedRoom}}</h1>
+                            </div>
             <div id="room-content">
                 <div id="chat-box-wrapper">
                     <chat-box :messages="messages" @message="sendMessage"></chat-box>
@@ -55,7 +54,10 @@
         },
         methods: {
             joinRoom(roomName) {
+                if(roomName !== this.user.selectedRoom){
+                this.leaveRoom();
                 client.emit('join-room', {name: this.user.name, selectedRoom: roomName});
+                }
             },
             leaveRoom() {
                 this.user.selectedRoom = '';
@@ -63,7 +65,10 @@
             },
             sendMessage(msg) {
                 client.emit('message', msg);
-            }
+            },
+            changeUsername() {
+                client.emit('change-username', this.user.name);
+            },
         },
         components: {
             "chat-box": ChatBox,
@@ -99,13 +104,20 @@
 
 <style scoped>
     #main-container {
-        width: 1200px;
-        margin: 0 auto;
-        padding-top: 100px;
+        display:flex;
+        max-width: 900px;
+        margin: 5px auto 0px;
     }
 
     #room-header {
         display: flex;
+    }
+
+    #chat-wrapper{
+        flex:1;
+        flex-flow:column;
+        display:flex;
+        height:100vh;
     }
 
     #button-leave-room {
@@ -119,9 +131,17 @@
         outline: none;
     }
 
+    #chat-box-wrapper{
+        flex:1;
+    }
+
     #button-leave-room:hover {
         background-color: rgb(199, 39, 39);
         box-shadow: 0px 0px 8px 1px floralwhite;
+    }
+
+    #room-list-container{
+        width:200px;
     }
 
     #room-list-container ul {
@@ -138,6 +158,7 @@
 
     #room-content {
         display: flex;
+        height:100%;
     }
 
     chat-box {
@@ -145,8 +166,8 @@
     }
 
     #user-list-wrapper {
-        width: 100%;
-        padding-left: 50px;
+        width:200px;
+        padding: 1rem;
     }
 
     #user-list-wrapper ul {

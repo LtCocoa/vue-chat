@@ -7,7 +7,7 @@
                 <span>{{message.message}}</span>
             </div>
         </div>
-        <div></div>
+        
         <input type="text" 
             placeholder="type your message"
             class="message-input"
@@ -50,7 +50,11 @@ export default {
 
 <style>
     #chat-container {
-        width: 900px;
+       display:flex;
+
+       flex-flow:column;
+        height:100%;
+        flex:1;
     }
 
     h1 {
@@ -58,7 +62,8 @@ export default {
     }
 
     #message-box-container {
-        height: 500px;
+        max-height: 500px;
+        flex:1;
         overflow-y: scroll;
     }
 

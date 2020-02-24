@@ -42,6 +42,7 @@ io.on('connection', function(socket) {
         let room = rooms[socket.user.roomId];
         if(room) {
             room.users.splice(room.users.indexOf(socket.user), 1);
+            socket.user.roomId = -1;
             io.to(room.name).emit('room-users', room.users);
             console.log(`--${socket.user.name} has left ${room.name}`);
         }
@@ -69,6 +70,15 @@ io.on('connection', function(socket) {
     socket.on('leave-room', () => {
         socket.leave(socket.user.selectedRoom);
         disconnectUser();
+    });
+
+    socket.on('change-username', username => {
+        socket.user.name = username;
+        let room = rooms[socket.user.roomId];
+        if(room) {
+            io.to(room.name).emit('room-users', room.users);
+            console.log(room.name, room.users);
+        }
     });
     
     socket.on('message', msg => {

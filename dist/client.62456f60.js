@@ -18029,8 +18029,6 @@ exports.default = _default;
       0
     ),
     _vm._v(" "),
-    _c("div"),
-    _vm._v(" "),
     _c("input", {
       directives: [
         {
@@ -18142,7 +18140,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
 var client = (0, _socket.default)('http://192.168.1.65:8080');
 var _default = {
   name: "App",
@@ -18160,10 +18157,13 @@ var _default = {
   computed: {},
   methods: {
     joinRoom: function joinRoom(roomName) {
-      client.emit('join-room', {
-        name: this.user.name,
-        selectedRoom: roomName
-      });
+      if (roomName !== this.user.selectedRoom) {
+        this.leaveRoom();
+        client.emit('join-room', {
+          name: this.user.name,
+          selectedRoom: roomName
+        });
+      }
     },
     leaveRoom: function leaveRoom() {
       this.user.selectedRoom = '';
@@ -18171,6 +18171,9 @@ var _default = {
     },
     sendMessage: function sendMessage(msg) {
       client.emit('message', msg);
+    },
+    changeUsername: function changeUsername() {
+      client.emit('change-username', this.user.name);
     }
   },
   components: {
@@ -18216,92 +18219,88 @@ exports.default = _default;
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "main-container" } }, [
-    _vm.user.selectedRoom == ""
-      ? _c("div", { attrs: { id: "room-list-container" } }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model.lazy",
-                value: _vm.user.name,
-                expression: "user.name",
-                modifiers: { lazy: true }
+    _c("div", { attrs: { id: "room-list-container" } }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.lazy",
+            value: _vm.user.name,
+            expression: "user.name",
+            modifiers: { lazy: true }
+          }
+        ],
+        attrs: { type: "text", placeholder: "username", id: "" },
+        domProps: { value: _vm.user.name },
+        on: {
+          change: [
+            function($event) {
+              return _vm.$set(_vm.user, "name", $event.target.value)
+            },
+            _vm.changeUsername
+          ]
+        }
+      }),
+      _vm._v(" "),
+      _c("h1", [_vm._v("room list")]),
+      _vm._v(" "),
+      _c(
+        "ul",
+        _vm._l(_vm.rooms, function(room) {
+          return _c(
+            "li",
+            {
+              key: room.id,
+              on: {
+                click: function($event) {
+                  return _vm.joinRoom(room)
+                }
               }
-            ],
-            attrs: { type: "text", placeholder: "username", id: "" },
-            domProps: { value: _vm.user.name },
-            on: {
-              change: function($event) {
-                return _vm.$set(_vm.user, "name", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("h1", [_vm._v("room list")]),
+            },
+            [_c("span", [_vm._v(_vm._s(room))])]
+          )
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "chat-wrapper" } }, [
+      _c("div", { attrs: { id: "room-header" } }, [
+        _c("h1", [
+          _vm._v(
+            _vm._s(
+              !_vm.user.selectedRoom ? "Выбор комнаты" : _vm.user.selectedRoom
+            )
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "room-content" } }, [
+        _c(
+          "div",
+          { attrs: { id: "chat-box-wrapper" } },
+          [
+            _c("chat-box", {
+              attrs: { messages: _vm.messages },
+              on: { message: _vm.sendMessage }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "user-list-wrapper" } }, [
+          _c("h2", [_vm._v("users")]),
           _vm._v(" "),
           _c(
             "ul",
-            _vm._l(_vm.rooms, function(room) {
-              return _c(
-                "li",
-                {
-                  key: room.id,
-                  on: {
-                    click: function($event) {
-                      return _vm.joinRoom(room)
-                    }
-                  }
-                },
-                [_c("span", [_vm._v(_vm._s(room))])]
-              )
+            _vm._l(_vm.currentRoomUsers, function(user) {
+              return _c("li", [_c("span", [_vm._v(_vm._s(user.name))])])
             }),
             0
           )
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.user.selectedRoom !== ""
-      ? _c("div", { attrs: { id: "chat-wrapper" } }, [
-          _c("div", { attrs: { id: "room-header" } }, [
-            _c("h1", [_vm._v(_vm._s(_vm.user.selectedRoom))]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                attrs: { id: "button-leave-room" },
-                on: { click: _vm.leaveRoom }
-              },
-              [_vm._v("x")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { attrs: { id: "room-content" } }, [
-            _c(
-              "div",
-              { attrs: { id: "chat-box-wrapper" } },
-              [
-                _c("chat-box", {
-                  attrs: { messages: _vm.messages },
-                  on: { message: _vm.sendMessage }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { attrs: { id: "user-list-wrapper" } }, [
-              _c("h2", [_vm._v("users")]),
-              _vm._v(" "),
-              _c(
-                "ul",
-                _vm._l(_vm.currentRoomUsers, function(user) {
-                  return _c("li", [_c("span", [_vm._v(_vm._s(user.name))])])
-                }),
-                0
-              )
-            ])
-          ])
-        ])
-      : _vm._e()
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -18380,7 +18379,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51832" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51881" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
