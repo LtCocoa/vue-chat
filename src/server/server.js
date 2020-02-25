@@ -7,43 +7,40 @@ const io = socketIO(PORT);
 let rooms = [
     {
         id: 1,
-        name: "Silvermoon",
+        name: "room 1",
         users: [],
         messages: [],
     },
     {
         id: 2,
-        name: "Orgrimmar",
+        name: "room 2",
         users: [],
         messages: [],
     },
     {
         id: 3,
-        name: "Dalaran",
+        name: "room 3",
         users: [],
         messages: [],
     },
     {
         id: 4,
-        name: "Ironforge",
+        name: "room 4",
         users: [],
         messages: [],
     }
 ];
 
-let allUsers = [];
-
 io.on('connection', function(socket) {
     console.log(`${new Date()} New connection established: ${socket.id}`);
     socket.user = {};
-    allUsers.push(socket);
 
     function disconnectUser() {
         let room = rooms[socket.user.roomId];
         if(room) {
             room.users.splice(room.users.indexOf(socket.user), 1);
             socket.user.roomId = -1;
-            io.to(room.name).emit('room-users', room.users);
+            io.in(room.name).emit('room-users', room.users);
             console.log(`--${socket.user.name} has left ${room.name}`);
         }
     }
@@ -51,25 +48,36 @@ io.on('connection', function(socket) {
     socket.on('disconnect', function() {
         disconnectUser();
     });
- 
+
     socket.on('join-room', user => {
         let roomFound = rooms.find(room => room.name === user.selectedRoom);
         if(roomFound) {
-            socket.join(user.selectedRoom);
-            socket.user = {
-                name: user.name,
-                roomId: rooms.indexOf(roomFound),
-            }
-            roomFound.users.push(socket.user);
-            socket.emit('connected', {result: true, name: user.selectedRoom, messages: roomFound.messages});
-            io.to(roomFound.name).emit('room-users', roomFound.users);
-            console.log(`--${user.name} has joined ${user.selectedRoom}`);
+            socket.join(user.selectedRoom, () => {
+                socket.user = {
+                    id: socket.id,
+                    name: user.name,
+                    roomId: rooms.indexOf(roomFound),
+                }
+                roomFound.users.push(socket.user);
+                socket.emit('connected', {result: true, name: user.selectedRoom, messages: roomFound.messages});
+                io.in(roomFound.name).emit('room-users', roomFound.users);
+                console.log(`--${user.name} has joined ${user.selectedRoom}`);
+            });
         }
     });
 
     socket.on('leave-room', () => {
-        socket.leave(socket.user.selectedRoom);
-        disconnectUser();
+        let room = rooms[socket.user.roomId];
+        if(!room) {
+            return;
+        }
+        socket.leave(room.name, (err) => {
+            if(err) {
+                console.log(err);
+            } else {
+                disconnectUser();
+            }
+        });
     });
 
     socket.on('change-username', username => {
@@ -77,7 +85,6 @@ io.on('connection', function(socket) {
         let room = rooms[socket.user.roomId];
         if(room) {
             io.to(room.name).emit('room-users', room.users);
-            console.log(room.name, room.users);
         }
     });
     
@@ -91,7 +98,6 @@ io.on('connection', function(socket) {
             rooms[socket.user.roomId].messages.push(p);
             io.to(rooms[socket.user.roomId].name).emit('message', p);
         }
-        console.log(rooms);
     });
 
     socket.emit('room-list', rooms.map(({name}) => name));

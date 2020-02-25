@@ -7,7 +7,6 @@
                 <span>{{message.message}}</span>
             </div>
         </div>
-        
         <input type="text" 
             placeholder="type your message"
             class="message-input"
@@ -17,7 +16,6 @@
 </template>
 
 <script>
-
 export default {
     props: {
         messages: Array,
@@ -50,11 +48,10 @@ export default {
 
 <style>
     #chat-container {
-       display:flex;
-
-       flex-flow:column;
-        height:100%;
-        flex:1;
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+        flex: 1;
     }
 
     h1 {
@@ -62,8 +59,8 @@ export default {
     }
 
     #message-box-container {
-        max-height: 500px;
-        flex:1;
+        height: 500px;
+        flex: 1;
         overflow-y: scroll;
     }
 

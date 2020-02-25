@@ -1,29 +1,34 @@
 <template>
     <div id="main-container">
-        <div id="room-list-container" >
-            <input type="text" placeholder="username" id="" v-model.lazy="user.name" @change="changeUsername">
-            <h1>room list</h1>
-            <ul>
-                <li v-for="room in rooms" :key="room.id" @click="joinRoom(room)">
-                    <span>{{room}}</span>
-                </li>
-            </ul>
+        <div id="user-info">
+            <span>username:</span>
+            <input type="text" placeholder="username" id="" v-model.lazy="user.name" @change="changeUsername" maxlength="10">
         </div>
-        <div id="chat-wrapper" >
-            <div id="room-header">
-                <h1>{{!user.selectedRoom ? 'Выбор комнаты': user.selectedRoom}}</h1>
-                            </div>
-            <div id="room-content">
-                <div id="chat-box-wrapper">
-                    <chat-box :messages="messages" @message="sendMessage"></chat-box>
+        <div id="chat-container">
+            <div id="room-list-container">
+                <h1>room list</h1>
+                <ul>
+                    <li v-for="room in rooms" :key="room.id" @click="joinRoom(room)">
+                        <span :class="{active: room === user.selectedRoom}">{{room}}</span>
+                    </li>
+                </ul>
                 </div>
-                <div id="user-list-wrapper">
-                    <h2>users</h2>
-                    <ul>
-                        <li v-for="user in currentRoomUsers">
-                            <span>{{user.name}}</span>
-                        </li>
-                    </ul>
+            <div id="chat-wrapper">
+                <div id="room-header">
+                    <h1>{{!user.selectedRoom ? 'room name': user.selectedRoom}}</h1>
+                </div>
+                <div id="room-content">
+                    <div id="chat-box-wrapper">
+                        <chat-box :messages="messages" @message="sendMessage"></chat-box>
+                    </div>
+                    <div id="user-list-wrapper">
+                        <h2>users</h2>
+                        <ul>
+                            <li v-for="user in currentRoomUsers">
+                                <span class="user-name">{{user.name}}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -34,7 +39,7 @@
     import socketIOClient from 'socket.io-client';
     import ChatBox from './components/ChatBox';
     
-    const client = socketIOClient('http://192.168.1.65:8080');
+    const client = socketIOClient('http://localhost:8080');
 
     export default {
         name: "App",
@@ -54,9 +59,12 @@
         },
         methods: {
             joinRoom(roomName) {
+                if(this.user.name == '') {
+                    return;
+                }
                 if(roomName !== this.user.selectedRoom){
-                this.leaveRoom();
-                client.emit('join-room', {name: this.user.name, selectedRoom: roomName});
+                    this.leaveRoom();
+                    client.emit('join-room', {name: this.user.name, selectedRoom: roomName});
                 }
             },
             leaveRoom() {
@@ -64,10 +72,15 @@
                 client.emit('leave-room');
             },
             sendMessage(msg) {
-                client.emit('message', msg);
+                if(this.user.selectedRoom != '') {
+                    client.emit('message', msg);
+                }
             },
             changeUsername() {
                 client.emit('change-username', this.user.name);
+            },
+            whisperTo(userId) {
+                
             },
         },
         components: {
@@ -83,7 +96,6 @@
                     this.user.selectedRoom = obj.name;
                     this.messages = obj.messages;
                 }
-                console.log(this.messages);
             });
 
             client.on('disconnected', () => {
@@ -93,6 +105,7 @@
 
             client.on('room-users', obj => {
                 this.currentRoomUsers = obj;
+                console.log("room users: ", obj);
             });
 
             client.on('message', msg => {
@@ -104,9 +117,18 @@
 
 <style scoped>
     #main-container {
-        display:flex;
         max-width: 900px;
         margin: 5px auto 0px;
+    }
+
+    #user-info {
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    #chat-container {
+        display: block;
+        height: 100%;
     }
 
     #room-header {
@@ -114,10 +136,9 @@
     }
 
     #chat-wrapper{
-        flex:1;
-        flex-flow:column;
-        display:flex;
-        height:100vh;
+        flex: 1;
+        flex-flow: column;
+        display: flex;
     }
 
     #button-leave-room {
@@ -141,7 +162,8 @@
     }
 
     #room-list-container{
-        width:200px;
+        width: 200px;
+        float: left;
     }
 
     #room-list-container ul {
@@ -158,7 +180,7 @@
 
     #room-content {
         display: flex;
-        height:100%;
+        height: 100%;
     }
 
     chat-box {
@@ -166,7 +188,7 @@
     }
 
     #user-list-wrapper {
-        width:200px;
+        width: 100px;
         padding: 1rem;
     }
 
@@ -174,5 +196,16 @@
         padding: 0;
         list-style: none;
     }
+
+    .user-name {
+        cursor: pointer;
+    }
+
+    .user-name:hover {
+        color: cornflowerblue;
+    }
     
+    .active {
+        color: cornflowerblue;
+    }
 </style>
