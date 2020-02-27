@@ -20,7 +20,6 @@ export default {
     methods: {
         scrollToBottom() {
             var container = this.$el;
-            console.log(container);
             container.scrollTop = container.scrollHeight;
         }
     },
@@ -41,7 +40,7 @@ export default {
     #messages-container {
         height: 700px;
         flex: 1;
-        overflow-y: scroll;
+        overflow-y: auto;
         margin-bottom: 20px;
     }
 

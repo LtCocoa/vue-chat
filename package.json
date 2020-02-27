@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --watch src/server src/server/server.js",
-    "watch": "parcel serve public/index.html --port 8081"
+    "watch": "parcel serve public/index.html --port 8081",
+    "build": "parcel build public/index.html"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +16,7 @@
     "parcel-bundler": "^1.12.4",
     "socket.io": "^2.3.0",
     "vue": "^2.6.11",
-    "vue-hot-reload-api": "^2.3.4",
-    "vuex": "^3.1.2"
+    "vue-hot-reload-api": "^2.3.4"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.1.1",

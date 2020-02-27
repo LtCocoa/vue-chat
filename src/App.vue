@@ -24,7 +24,7 @@
                 </div>
                 <div id="chat-box-wrapper">
                     <chat-box :messages="messages"></chat-box>
-                    <div>
+                    <div id="message-input-wrapper">
                         <input type="text" 
                             placeholder="type your message"
                             class="message-input"
@@ -146,6 +146,10 @@
         padding: 20px;
     }
 
+    #user-info-container span {
+        color: rgb(212, 212, 212);
+    }
+
     #chat-box-wrapper{
         grid-area: chatmn;
         display: flex;
@@ -247,6 +251,10 @@
         outline: none;
         border-radius: 5px;
         padding: 5px;
+    }
+
+    #message-input-wrapper {
+        padding: 20px;
     }
 
     .message-input {

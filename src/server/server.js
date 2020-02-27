@@ -1,8 +1,9 @@
-const socketIO = require('socket.io');
+const express = require('express');
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
-const PORT = 8080;
-
-const io = socketIO(PORT);
+server.listen(8080);
 
 let rooms = [
     {
@@ -30,6 +31,8 @@ let rooms = [
         messages: [],
     }
 ];
+
+app.use(express.static("dist"));
 
 io.on('connection', function(socket) {
     console.log(`${new Date()} New connection established: ${socket.id}`);
@@ -102,5 +105,3 @@ io.on('connection', function(socket) {
 
     socket.emit('room-list', rooms.map(({name}) => name));
 });
-
-console.log(`Server listening port ${PORT}`);
