@@ -1,17 +1,9 @@
 <template>
-    <div id="chat-container">
-        <h2>chat messages</h2>
-        <div id="message-box-container">
-            <div v-for="message in messages" class="message">
-                <p>{{message.username}}</p>
-                <span>{{message.message}}</span>
-            </div>
+    <div id="messages-container">
+        <div v-for="message in messages" class="message">
+            <p>{{message.username}}</p>
+            <span>{{message.message}}</span>
         </div>
-        <input type="text" 
-            placeholder="type your message"
-            class="message-input"
-            v-model="message"
-            @keyup.enter="newMessage">
     </div>
 </template>
 
@@ -26,14 +18,9 @@ export default {
         }
     },
     methods: {
-        newMessage() {
-            if(this.message !== '') {
-                this.$emit('message', this.message);
-                this.message = '';
-            }
-        },
         scrollToBottom() {
-            var container = this.$el.querySelector("#message-box-container");
+            var container = this.$el;
+            console.log(container);
             container.scrollTop = container.scrollHeight;
         }
     },
@@ -46,26 +33,23 @@ export default {
 }
 </script>
 
-<style>
-    #chat-container {
-        display: flex;
-        flex-flow: column;
-        height: 100%;
-        flex: 1;
-    }
-
+<style scoped>
     h1 {
         margin: 0;
     }
 
-    #message-box-container {
-        height: 500px;
+    #messages-container {
+        height: 700px;
         flex: 1;
         overflow-y: scroll;
+        margin-bottom: 20px;
     }
 
     .message {
-        padding: 5px;
+        padding: 10px 20px;
+        background-color: rgb(212, 222, 230);
+        border-radius: 10px;
+        margin: 5px 15px;
     }
 
     .message p {
@@ -77,24 +61,6 @@ export default {
     .message span {
         font-size: 16px;
         word-wrap: break-word;
-    }
-
-    .message-input {
-        border: none;
-        border-radius: 10px;
-        outline: none;
-        padding: .5rem 1rem;
-        margin-top: 50px;
-        font-size: 25px;
-        width: 90%;
-        background-color: lightgray;
-        transition: all .2s ease-in-out;
-    }
-
-    .message-input:focus {
-        border: 1px solid purple;
-        background-color: black;
-        color: white;
     }
 
     ::-webkit-scrollbar {

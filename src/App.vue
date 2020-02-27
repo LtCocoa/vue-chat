@@ -1,34 +1,44 @@
 <template>
-    <div id="main-container">
-        <div id="user-info">
-            <span>username:</span>
-            <input type="text" placeholder="username" id="" v-model.lazy="user.name" @change="changeUsername" maxlength="10">
-        </div>
-        <div id="chat-container">
-            <div id="room-list-container">
-                <h1>room list</h1>
-                <ul>
-                    <li v-for="room in rooms" :key="room.id" @click="joinRoom(room)">
-                        <span :class="{active: room === user.selectedRoom}">{{room}}</span>
-                    </li>
-                </ul>
-                </div>
+    <div id="main-wrapper">
+        <div id="main-container">
+            <div id="user-info-container">
+                <span>username:</span>
+                <input type="text" placeholder="username" id="user-name-input" v-model.lazy="user.name" @change="changeUsername" maxlength="10">
+            </div>
             <div id="chat-wrapper">
-                <div id="room-header">
-                    <h1>{{!user.selectedRoom ? 'room name': user.selectedRoom}}</h1>
+                <div class="section-header section-header-room-list">
+                    <h5>room list</h5>
                 </div>
-                <div id="room-content">
-                    <div id="chat-box-wrapper">
-                        <chat-box :messages="messages" @message="sendMessage"></chat-box>
+                <div class="section-header section-header-room-name">
+                    <h5>{{!user.selectedRoom ? 'room name': user.selectedRoom}}</h5>
+                </div>
+                <div class="section-header section-header-user-list">
+                    <h5>users</h5>
+                </div>
+                <div id="room-list-wrapper">
+                    <ul>
+                        <li v-for="room in rooms" :key="room.id" @click="joinRoom(room)">
+                            <span :class="{active: room === user.selectedRoom}">{{room}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="chat-box-wrapper">
+                    <chat-box :messages="messages"></chat-box>
+                    <div>
+                        <input type="text" 
+                            placeholder="type your message"
+                            class="message-input"
+                            v-model="newMessage"
+                            @keyup.enter="sendMessage"
+                            v-if="user.selectedRoom.length > 0">
                     </div>
-                    <div id="user-list-wrapper">
-                        <h2>users</h2>
-                        <ul>
-                            <li v-for="user in currentRoomUsers">
-                                <span class="user-name">{{user.name}}</span>
-                            </li>
-                        </ul>
-                    </div>
+                </div>
+                <div id="user-list-wrapper">
+                    <ul>
+                        <li v-for="user in currentRoomUsers">
+                            <span class="user-name">{{user.name}}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -49,6 +59,7 @@
                     name: 'anonymous',
                     selectedRoom: '',
                 },
+                newMessage: '',
                 rooms: [],
                 currentRoomUsers: [],
                 messages: [],
@@ -71,9 +82,10 @@
                 this.user.selectedRoom = '';
                 client.emit('leave-room');
             },
-            sendMessage(msg) {
-                if(this.user.selectedRoom != '') {
-                    client.emit('message', msg);
+            sendMessage() {
+                if((this.user.selectedRoom.length > 0) && (this.newMessage.length > 0)) {
+                    client.emit('message', this.newMessage);
+                    this.newMessage = '';
                 }
             },
             changeUsername() {
@@ -116,66 +128,92 @@
 </script>
 
 <style scoped>
-    #main-container {
-        max-width: 900px;
-        margin: 5px auto 0px;
-    }
-
-    #user-info {
-        width: 100%;
-        padding: 20px 0;
-    }
-
-    #chat-container {
+    #main-wrapper {
         display: block;
         height: 100%;
     }
 
-    #room-header {
+    #main-container {
         display: flex;
+        height: 100%;
+        background-color: rgb(30, 28, 36);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
-    #chat-wrapper{
-        flex: 1;
+    #user-info-container {
+        display: flex;
         flex-flow: column;
-        display: flex;
-    }
-
-    #button-leave-room {
-        margin-left: 30px;
-        font-size: 30px;
-        width: 45px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all .2s ease-in-out;
-        outline: none;
+        padding: 20px;
     }
 
     #chat-box-wrapper{
-        flex:1;
+        grid-area: chatmn;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background-color: rgb(236, 243, 248);
     }
 
-    #button-leave-room:hover {
-        background-color: rgb(199, 39, 39);
-        box-shadow: 0px 0px 8px 1px floralwhite;
+    #chat-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 4fr 1fr;
+        grid-template-rows: 6rem 1fr;
+        grid-template-areas:
+            "roomhd chathd usershd"
+            "roommn chatmn usersmn";
+        width: 100vw;
+        border: 1px solid black;
+        margin-top: 10px;
+        border-bottom-left-radius: 15px;
+        border-top-left-radius: 15px;
     }
 
-    #room-list-container{
-        width: 200px;
-        float: left;
+    .section-header {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.226);
     }
 
-    #room-list-container ul {
-        list-style: none;
+    .section-header h5 {
+        margin-left: 1rem;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        font-weight: 600;
     }
 
-    #room-list-container ul span {
+    .section-header-room-list {
+        background-color: rgb(219, 228, 235);
+        border-top-left-radius: 15px;
+        grid-area: roomhd;
+    }
+
+    .section-header-room-name {
+        grid-area: chathd;
+        background-color: rgb(236, 243, 248);
+    }
+
+    .section-header-user-list {
+        grid-area: usershd;
+        background-color: rgb(219, 228, 235);
+    }
+
+    #room-list-wrapper ul {
+        margin: 0;
+        padding-left: 2rem;
+        list-style-type: none;
         cursor: pointer;
+        margin-top: 10px;
     }
 
-    #room-list-container ul span:hover {
-        color: cornflowerblue;
+    #user-list-wrapper ul {
+        margin: 0;
+        padding-left: 2rem;
+        list-style-type: none;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    #room-list-wrapper{
+        grid-area: roommn;
+        background-color: rgb(219, 228, 235);
     }
 
     #room-content {
@@ -188,13 +226,8 @@
     }
 
     #user-list-wrapper {
-        width: 100px;
-        padding: 1rem;
-    }
-
-    #user-list-wrapper ul {
-        padding: 0;
-        list-style: none;
+        grid-area: usersmn;
+        background-color: rgb(219, 228, 235);
     }
 
     .user-name {
@@ -207,5 +240,31 @@
     
     .active {
         color: cornflowerblue;
+    }
+
+    #user-name-input {
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .message-input {
+        border: 1px solid transparent;
+        border-radius: 10px;
+        outline: none;
+        padding: .5rem 1rem;
+        font-size: 25px;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: lightgray;
+        transition: all .2s ease-in-out;
+    }
+
+    .message-input:focus {
+        border: 1px solid purple;
+        box-sizing: border-box;
+        background-color: black;
+        color: white;
     }
 </style>
