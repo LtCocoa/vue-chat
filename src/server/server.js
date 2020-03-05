@@ -2,6 +2,7 @@ const express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+const testRouter = require('./router');
 
 server.listen(8080);
 
@@ -33,6 +34,7 @@ let rooms = [
 ];
 
 app.use(express.static("dist"));
+
 
 io.on('connection', function(socket) {
     console.log(`${new Date()} New connection established: ${socket.id}`);

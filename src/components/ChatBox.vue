@@ -1,6 +1,6 @@
 <template>
     <div id="messages-container">
-        <div v-for="message in messages" class="message">
+        <div v-for="(message, index) in messages" :key="index" class="message">
             <p>{{message.username}}</p>
             <span>{{message.message}}</span>
         </div>
@@ -63,19 +63,17 @@ export default {
     }
 
     ::-webkit-scrollbar {
-        width: 10px;
+        width: 5px;
     }
 
     /* Track */
     ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px #303080;
-        border-radius: 10px;
+        box-shadow: inset 0 0 4px #16163b;
     }
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: #181840;
-        border-radius: 10px;
+        background: #3030af;
         box-shadow: inset 0 0 5px lightskyblue;
     }
 

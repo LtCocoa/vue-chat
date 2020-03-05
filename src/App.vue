@@ -1,46 +1,52 @@
 <template>
     <div id="main-wrapper">
         <div id="main-container">
-            <div id="user-info-container">
-                <span>username:</span>
-                <input type="text" placeholder="username" id="user-name-input" v-model.lazy="user.name" @change="changeUsername" maxlength="10">
+            <div id="navbar">
+                <ul id="navbar-nav">
+                    <li class="nav-item">
+                        <span>username:</span>
+                        <input type="text" placeholder="username" id="user-name-input" v-model.lazy="user.name" @change="changeUsername" maxlength="10">
+                    </li>
+                </ul>
             </div>
             <div id="chat-wrapper">
-                <div class="section-header section-header-room-list">
-                    <h5>room list</h5>
-                </div>
-                <div class="section-header section-header-room-name">
-                    <h5>{{!user.selectedRoom ? 'room name': user.selectedRoom}}</h5>
-                </div>
-                <div class="section-header section-header-user-list">
-                    <h5>users</h5>
-                </div>
-                <div id="room-list-wrapper">
-                    <ul>
-                        <li v-for="room in rooms" :key="room.id" @click="joinRoom(room)">
-                            <span :class="{active: room === user.selectedRoom}">{{room}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div id="chat-box-wrapper">
-                    <chat-box :messages="messages"></chat-box>
-                    <div id="message-input-wrapper">
-                        <input type="text" 
-                            placeholder="type your message"
-                            class="message-input"
-                            v-model="newMessage"
-                            @keyup.enter="sendMessage"
-                            v-if="user.selectedRoom.length > 0">
+                <div id="chat-container">
+                    <div class="section-header section-header-room-list">
+                        <h5>room list</h5>
+                    </div>
+                    <div class="section-header section-header-room-name">
+                        <h5>{{!user.selectedRoom ? 'room name': user.selectedRoom}}</h5>
+                    </div>
+                    <div class="section-header section-header-user-list">
+                        <h5>users</h5>
+                    </div>
+                    <div id="room-list-wrapper">
+                        <ul>
+                            <li v-for="room in rooms" :key="room.id" @click="joinRoom(room)">
+                                <span :class="{active: room === user.selectedRoom}">{{room}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="chat-box-wrapper">
+                        <chat-box :messages="messages"></chat-box>
+                        <div id="message-input-wrapper">
+                            <input type="text" 
+                                placeholder="type your message"
+                                class="message-input"
+                                v-model="newMessage"
+                                @keyup.enter="sendMessage"
+                                v-if="user.selectedRoom.length > 0">
+                        </div>
+                    </div>
+                    <div id="user-list-wrapper">
+                        <ul>
+                            <li v-for="(user, index) in currentRoomUsers" :key="index">
+                                <span class="user-name">{{user.name}}</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div id="user-list-wrapper">
-                    <ul>
-                        <li v-for="user in currentRoomUsers">
-                            <span class="user-name">{{user.name}}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div>
         </div>
     </div>
 </template>
@@ -91,9 +97,6 @@
             changeUsername() {
                 client.emit('change-username', this.user.name);
             },
-            whisperTo(userId) {
-                
-            },
         },
         components: {
             "chat-box": ChatBox,
@@ -140,14 +143,35 @@
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
-    #user-info-container {
-        display: flex;
-        flex-flow: column;
-        padding: 20px;
+    #navbar {
+        position: fixed;
+        display: block;
+        width: 7rem;
+        height: 100%;
+        top: 0;
+        transition: width 600ms ease;
+        background-color: inherit;
     }
 
-    #user-info-container span {
+    #navbar:hover {
+        width: 15rem;
+    }
+
+    #navbar span {
         color: rgb(212, 212, 212);
+    }
+
+    #navbar-nav {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+
+    .nav-item {
+        width: 100%;
     }
 
     #chat-box-wrapper{
@@ -155,48 +179,55 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        background-color: rgb(236, 243, 248);
+        background-color: var(--chat-1);
+    }
+    
+    #chat-wrapper {
+        margin-top: 10px;
+        margin-left: 7rem;
+        width: 100%;
     }
 
-    #chat-wrapper {
+    #chat-container {
         display: grid;
         grid-template-columns: 1fr 4fr 1fr;
         grid-template-rows: 6rem 1fr;
         grid-template-areas:
             "roomhd chathd usershd"
             "roommn chatmn usersmn";
-        width: 100vw;
+        height: 99%;
         border: 1px solid black;
-        margin-top: 10px;
         border-bottom-left-radius: 15px;
         border-top-left-radius: 15px;
     }
 
     .section-header {
+        display: flex;
+        align-items: center;
         border-bottom: 1px solid rgba(128, 128, 128, 0.226);
     }
 
     .section-header h5 {
         margin-left: 1rem;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         text-transform: uppercase;
         font-weight: 600;
     }
 
     .section-header-room-list {
-        background-color: rgb(219, 228, 235);
+        background-color: var(--chat-2);
         border-top-left-radius: 15px;
         grid-area: roomhd;
     }
 
     .section-header-room-name {
         grid-area: chathd;
-        background-color: rgb(236, 243, 248);
+        background-color: var(--chat-1);
     }
 
     .section-header-user-list {
         grid-area: usershd;
-        background-color: rgb(219, 228, 235);
+        background-color: var(--chat-2);
     }
 
     #room-list-wrapper ul {
@@ -217,7 +248,7 @@
 
     #room-list-wrapper{
         grid-area: roommn;
-        background-color: rgb(219, 228, 235);
+        background-color: var(--chat-2);
     }
 
     #room-content {
@@ -231,7 +262,7 @@
 
     #user-list-wrapper {
         grid-area: usersmn;
-        background-color: rgb(219, 228, 235);
+        background-color: var(--chat-2);
     }
 
     .user-name {
@@ -251,6 +282,7 @@
         outline: none;
         border-radius: 5px;
         padding: 5px;
+        width: 90%;
     }
 
     #message-input-wrapper {
