@@ -74,7 +74,6 @@
 <script>
     import socketIOClient from 'socket.io-client';
     import ChatBox from './components/ChatBox';
-    import { VDialog } from 'vuetify/lib';
     
     const client = socketIOClient('http://localhost:8080');
 
@@ -123,7 +122,6 @@
             "chat-box": ChatBox,
         },
         mounted() {
-            console.log(vuetify);
             localStorage.setItem('token', 'asdklknczlkxc');
 
             client.on('room-list', (data) => {
@@ -183,7 +181,8 @@
     }
 
     #navbar:hover .nav-text {
-        display: inline;
+        opacity: 1;
+        left: 5rem;
     }
 
     #navbar span {
@@ -217,7 +216,11 @@
     }
 
     .nav-text {
-        display: none;
+        opacity: 0;
+        left: -999px;
+        position: absolute;
+        text-decoration: none;
+        transition: opacity .5s ease-in-out;
     }
 
     #user-name-input {
