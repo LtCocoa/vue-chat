@@ -2,39 +2,36 @@ const express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-const testRouter = require('./router');
+const mongoose = require('mongoose');
 
-server.listen(8080);
+mongoose.connect('mongodb://localhost:27017/chat', {useNewUrlParser: true, useUnifiedTopology: true});
+
+const Message = mongoose.model('Message', {roomName: String, userName: String, message: String}, 'messages');
 
 let rooms = [
     {
         id: 1,
         name: "room 1",
         users: [],
-        messages: [],
     },
     {
         id: 2,
         name: "room 2",
         users: [],
-        messages: [],
     },
     {
         id: 3,
         name: "room 3",
         users: [],
-        messages: [],
     },
     {
         id: 4,
         name: "room 4",
         users: [],
-        messages: [],
     }
 ];
 
-app.use(express.static("dist"));
-
+app.use(express.static("client/dist"));
 
 io.on('connection', function(socket) {
     console.log(`${new Date()} New connection established: ${socket.id}`);
@@ -64,7 +61,10 @@ io.on('connection', function(socket) {
                     roomId: rooms.indexOf(roomFound),
                 }
                 roomFound.users.push(socket.user);
-                socket.emit('connected', {result: true, name: user.selectedRoom, messages: roomFound.messages});
+                Message.find({roomName: roomFound.name}, {roomName: 0, _id: 0, __v: 0})
+                .then((data) => {
+                    socket.emit('connected', {result: true, name: user.selectedRoom, messages: data});
+                });
                 io.in(roomFound.name).emit('room-users', roomFound.users);
                 console.log(`--${user.name} has joined ${user.selectedRoom}`);
             });
@@ -86,24 +86,34 @@ io.on('connection', function(socket) {
     });
 
     socket.on('change-username', username => {
+        const room = rooms[socket.user.roomId];
         socket.user.name = username;
-        let room = rooms[socket.user.roomId];
         if(room) {
             io.to(room.name).emit('room-users', room.users);
         }
     });
     
     socket.on('message', msg => {
+        const room = rooms[socket.user.roomId];
+
         if(socket.user.roomId != -1) {
-            console.log(socket.user.name + ': ' + msg);
-            let p = {
-                username: socket.user.name,
-                message: msg,
-            }
-            rooms[socket.user.roomId].messages.push(p);
-            io.to(rooms[socket.user.roomId].name).emit('message', p);
+            const dbMsg = new Message({
+                roomName: room.name,
+                userName: socket.user.name,
+                message: msg
+            });
+
+            dbMsg.save().catch((err) => console.log(err));
+
+            io.to(room.name)
+            .emit('message', {
+                userName: socket.user.name,
+                message: msg
+            });
         }
     });
 
     socket.emit('room-list', rooms.map(({name}) => name));
 });
+
+server.listen(8080);

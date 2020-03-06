@@ -4,7 +4,27 @@
             <div id="navbar">
                 <ul id="navbar-nav">
                     <li class="nav-item">
-                        <span>username:</span>
+                        <a href="#" class="nav-link">
+                            <svg
+                                aria-hidden="true"
+                                focusable="false"
+                                data-prefix="fas"
+                                data-icon="user"
+                                class="svg-inline--fa fa-user fa-w-14"
+                                role="img"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+                                ></path>
+                            </svg>
+                            <span class="nav-text">{{user.name}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        
                         <input type="text" placeholder="username" id="user-name-input" v-model.lazy="user.name" @change="changeUsername" maxlength="10">
                     </li>
                 </ul>
@@ -46,7 +66,7 @@
                         </ul>
                     </div>
                 </div>
-            <div>
+            </div>
         </div>
     </div>
 </template>
@@ -54,6 +74,7 @@
 <script>
     import socketIOClient from 'socket.io-client';
     import ChatBox from './components/ChatBox';
+    import { VDialog } from 'vuetify/lib';
     
     const client = socketIOClient('http://localhost:8080');
 
@@ -102,12 +123,16 @@
             "chat-box": ChatBox,
         },
         mounted() {
+            console.log(vuetify);
+            localStorage.setItem('token', 'asdklknczlkxc');
+
             client.on('room-list', (data) => {
                 this.rooms = data;
             });
 
             client.on('connected', obj => {
                 if(obj.result) {
+                    console.log(obj);
                     this.user.selectedRoom = obj.name;
                     this.messages = obj.messages;
                 }
@@ -146,15 +171,19 @@
     #navbar {
         position: fixed;
         display: block;
-        width: 7rem;
+        width: 5rem;
         height: 100%;
         top: 0;
         transition: width 600ms ease;
-        background-color: inherit;
+        background-color: rgb(50, 43, 63);
     }
 
     #navbar:hover {
-        width: 15rem;
+        width: 14rem;
+    }
+
+    #navbar:hover .nav-text {
+        display: inline;
     }
 
     #navbar span {
@@ -172,6 +201,31 @@
 
     .nav-item {
         width: 100%;
+    }
+
+    .nav-link {
+        display: flex;
+        height: 5rem;
+        align-items: center;
+    }
+
+    .nav-item svg {
+        width: 2rem;
+        min-width: 2rem;
+        margin: 0 1.5rem;
+        color: rgb(177, 177, 177);
+    }
+
+    .nav-text {
+        display: none;
+    }
+
+    #user-name-input {
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        padding: 5px;
+        width: 5rem;
     }
 
     #chat-box-wrapper{
@@ -275,14 +329,6 @@
     
     .active {
         color: cornflowerblue;
-    }
-
-    #user-name-input {
-        border: none;
-        outline: none;
-        border-radius: 5px;
-        padding: 5px;
-        width: 90%;
     }
 
     #message-input-wrapper {

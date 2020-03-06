@@ -1,7 +1,7 @@
 <template>
     <div id="messages-container">
         <div v-for="(message, index) in messages" :key="index" class="message">
-            <p>{{message.username}}</p>
+            <p>{{message.userName}}</p>
             <span>{{message.message}}</span>
         </div>
     </div>
@@ -46,7 +46,7 @@ export default {
 
     .message {
         padding: 10px 20px;
-        background-color: rgb(212, 222, 230);
+        background-color: rgb(207, 207, 207);
         border-radius: 10px;
         margin: 5px 15px;
     }
