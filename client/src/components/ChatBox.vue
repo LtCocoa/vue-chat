@@ -42,6 +42,7 @@ export default {
         flex: 1;
         overflow-y: auto;
         margin-bottom: 20px;
+        font-size: 1.3rem;
     }
 
     .message {
@@ -54,11 +55,9 @@ export default {
     .message p {
         color:royalblue;
         margin: 0;
-        font-size: 20px;
     }
 
     .message span {
-        font-size: 16px;
         word-wrap: break-word;
     }
 

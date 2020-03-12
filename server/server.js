@@ -1,12 +1,18 @@
 const express = require('express');
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const mongoose = require('mongoose');
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const { User, Message } = require('./model/database');
 
-mongoose.connect('mongodb://localhost:27017/chat', {useNewUrlParser: true, useUnifiedTopology: true});
+dotenv.config();
 
-const Message = mongoose.model('Message', {roomName: String, userName: String, message: String}, 'messages');
+app.use(express.json());
+
+mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopology: true});
 
 let rooms = [
     {
@@ -31,7 +37,88 @@ let rooms = [
     }
 ];
 
+const corsOptions = {
+    exposedHeaders: 'auth-token',
+};
+
+app.use(cors(corsOptions));
+
+app.use(function(req, res, next) {
+    
+    next();
+});
+
 app.use(express.static("client/dist"));
+
+app.post('/login', (req, res) => {
+    User.findOne({
+        name: req.body.name,
+        password: req.body.password,
+    })
+    .then((user) => {
+        if(user) {
+            const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+            res.header('auth-token', token);
+            res.send({
+                result: "ok",
+                name: user.name,
+            });
+        } else {
+            //User not found
+            res.send({
+                result: "error",
+                message: "User not found",
+            })
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
+
+app.post('/register', (req, res) => {
+    const newUser = new User({
+        name: req.body.name,
+        password: req.body.password,
+    });
+
+    User.findOne({
+        name: newUser.name,
+        password: newUser.password
+    })
+    .then((data) => {
+        if(data) {
+            res.send({
+                result: "error",
+                message: "User already exists",
+            });
+        } else {
+            newUser.save()
+            .then(() => {
+                res.send({
+                    result: "ok",
+                    message: "User registered",
+                });
+            });
+        }
+    });
+});
+
+app.get('/auth', (req, res) => {
+    const token = req.headers["auth-token"];
+    try {
+        const userId = jwt.verify(token, process.env.TOKEN_SECRET);
+
+        User.findById(userId)
+        .then((user) => {
+            if(user) {
+                res.send(user.name);
+            }
+        });
+    } catch(err) {
+        console.log(err);
+    }
+});
 
 io.on('connection', function(socket) {
     console.log(`${new Date()} New connection established: ${socket.id}`);

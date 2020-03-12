@@ -1,6 +1,12 @@
 <template>
+<v-app style="height: 100%; overflow:auto;">
     <div id="main-wrapper">
         <div id="main-container">
+            <room-list 
+                v-model="showRoomList"
+                v-bind:rooms="rooms"
+                @roomSelected="joinRoom"
+            ></room-list>
             <div id="navbar">
                 <ul id="navbar-nav">
                     <li class="nav-item">
@@ -24,9 +30,62 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        
-                        <input type="text" placeholder="username" id="user-name-input" v-model.lazy="user.name" @change="changeUsername" maxlength="10">
+                        <a href="#" class="nav-link" @click="showRoomList = true">
+                            <svg
+                                aria-hidden="true"
+                                focusable="false"
+                                data-prefix="fas" 
+                                data-icon="comments" 
+                                class="svg-inline--fa fa-comments fa-w-18" 
+                                role="img" 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 576 512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"
+                                ></path>
+                            </svg>
+                            <span class="nav-text">Rooms</span>
+                        </a>
                     </li>
+					<li class="nav-item">
+						<a href="#" class="nav-link" @click="loginClick">
+                            <svg
+                                v-if="user.isLoggedIn"
+                                aria-hidden="true"
+                                focusable="false"
+                                data-prefix="fas" 
+                                data-icon="door-open" 
+                                class="svg-inline--fa fa-door-open fa-w-20" 
+                                role="img" xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 640 512"
+                            >
+                                <path 
+                                    fill="currentColor" 
+                                    d="M624 448h-80V113.45C544 86.19 522.47 64 496 64H384v64h96v384h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16zM312.24 1.01l-192 49.74C105.99 54.44 96 67.7 96 82.92V448H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h336V33.18c0-21.58-19.56-37.41-39.76-32.17zM264 288c-13.25 0-24-14.33-24-32s10.75-32 24-32 24 14.33 24 32-10.75 32-24 32z"
+                                ></path>
+                            </svg>
+							<svg
+                                v-if="!user.isLoggedIn"
+                                aria-hidden="true"
+                                focusable="false" 
+                                data-prefix="fas" 
+                                data-icon="key" 
+                                class="svg-inline--fa fa-key fa-w-16" 
+                                role="img" 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 512 512"
+                            >
+                                <path 
+                                    fill="currentColor" 
+                                    d="M512 176.001C512 273.203 433.202 352 336 352c-11.22 0-22.19-1.062-32.827-3.069l-24.012 27.014A23.999 23.999 0 0 1 261.223 384H224v40c0 13.255-10.745 24-24 24h-40v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24v-78.059c0-6.365 2.529-12.47 7.029-16.971l161.802-161.802C163.108 213.814 160 195.271 160 176 160 78.798 238.797.001 335.999 0 433.488-.001 512 78.511 512 176.001zM336 128c0 26.51 21.49 48 48 48s48-21.49 48-48-21.49-48-48-48-48 21.49-48 48z"
+                                ></path>
+                            </svg>
+							<span class="nav-text">{{user.isLoggedIn ? "Log Out" : "Log In"}}</span>
+                            <log-in v-model="dialog" @handle-login="handleLogin"></log-in>
+						</a>
+					</li>
                 </ul>
             </div>
             <div id="chat-wrapper">
@@ -50,12 +109,17 @@
                     <div id="chat-box-wrapper">
                         <chat-box :messages="messages"></chat-box>
                         <div id="message-input-wrapper">
-                            <input type="text" 
-                                placeholder="type your message"
-                                class="message-input"
+                            <v-textarea
+                                append-icon="mdi-comment-text-outline"
+                                class="mx-2 message-input"
+                                placeholder="your message"
+                                rows="2"
+                                no-resize
                                 v-model="newMessage"
                                 @keyup.enter="sendMessage"
-                                v-if="user.selectedRoom.length > 0">
+                                v-if="user.selectedRoom.length > 0"
+                                solo
+                            ></v-textarea>
                         </div>
                     </div>
                     <div id="user-list-wrapper">
@@ -69,14 +133,17 @@
             </div>
         </div>
     </div>
+</v-app>
 </template>
 
 <script>
     import socketIOClient from 'socket.io-client';
-    import ChatBox from './components/ChatBox';
+	import ChatBox from './components/ChatBox';
+    import LogInButton from './components/LogIn';
+    import RoomList from './components/RoomList';
     
-    const client = socketIOClient('http://localhost:8080');
-
+    const client = socketIOClient('http://192.168.1.65:8080');
+    
     export default {
         name: "App",
         data() {
@@ -84,11 +151,14 @@
                 user: {
                     name: 'anonymous',
                     selectedRoom: '',
+                    isLoggedIn: false,
                 },
                 newMessage: '',
                 rooms: [],
                 currentRoomUsers: [],
                 messages: [],
+                dialog: false,
+                showRoomList: false,
             }
         },
         computed: {
@@ -103,34 +173,51 @@
                     this.leaveRoom();
                     client.emit('join-room', {name: this.user.name, selectedRoom: roomName});
                 }
+                this.showRoomList = false;
             },
             leaveRoom() {
                 this.user.selectedRoom = '';
                 client.emit('leave-room');
             },
-            sendMessage() {
+            sendMessage(e) {
+                e.preventDefault();
                 if((this.user.selectedRoom.length > 0) && (this.newMessage.length > 0)) {
-                    client.emit('message', this.newMessage);
+                    client.emit('message', this.newMessage.trim());
                     this.newMessage = '';
                 }
             },
             changeUsername() {
                 client.emit('change-username', this.user.name);
             },
+            handleLogin(name) {
+                this.user.name = name;
+                this.dialog = false;
+                this.user.isLoggedIn = true;
+                this.changeUsername();
+            },
+            loginClick() {
+                if(this.user.isLoggedIn) {
+                    this.user.isLoggedIn = false;
+                    this.user.name = "anonymous";
+                    this.changeUsername();
+                    localStorage.removeItem('auth-token');
+                } else {
+                    this.dialog = true;
+                }
+            }
         },
         components: {
-            "chat-box": ChatBox,
+			"chat-box": ChatBox,
+            "log-in": LogInButton,
+            "room-list": RoomList,
         },
         mounted() {
-            localStorage.setItem('token', 'asdklknczlkxc');
-
             client.on('room-list', (data) => {
                 this.rooms = data;
             });
 
             client.on('connected', obj => {
                 if(obj.result) {
-                    console.log(obj);
                     this.user.selectedRoom = obj.name;
                     this.messages = obj.messages;
                 }
@@ -149,6 +236,9 @@
             client.on('message', msg => {
                 this.messages.push(msg);
             });
+        },
+        created() {
+            this.joinRoom('room 1');
         }
     }
 </script>
@@ -169,21 +259,11 @@
     #navbar {
         position: fixed;
         display: block;
-        width: 5rem;
-        height: 100%;
-        top: 0;
         transition: width 600ms ease;
         background-color: rgb(50, 43, 63);
     }
 
-    #navbar:hover {
-        width: 14rem;
-    }
-
-    #navbar:hover .nav-text {
-        opacity: 1;
-        left: 5rem;
-    }
+    
 
     #navbar span {
         color: rgb(212, 212, 212);
@@ -191,7 +271,6 @@
 
     #navbar-nav {
         display: flex;
-        flex-direction: column;
         list-style: none;
         padding: 0;
         margin: 0;
@@ -202,10 +281,19 @@
         width: 100%;
     }
 
+    .nav-item:last-child {
+        margin-top: auto;
+    }
+
     .nav-link {
         display: flex;
         height: 5rem;
         align-items: center;
+        transition: .3s;
+    }
+
+    .nav-link:hover {
+        background-color: rgb(38, 33, 48);
     }
 
     .nav-item svg {
@@ -221,14 +309,7 @@
         position: absolute;
         text-decoration: none;
         transition: opacity .5s ease-in-out;
-    }
-
-    #user-name-input {
-        border: none;
-        outline: none;
-        border-radius: 5px;
-        padding: 5px;
-        width: 5rem;
+        white-space: nowrap;
     }
 
     #chat-box-wrapper{
@@ -241,7 +322,6 @@
     
     #chat-wrapper {
         margin-top: 10px;
-        margin-left: 7rem;
         width: 100%;
     }
 
@@ -334,26 +414,75 @@
         color: cornflowerblue;
     }
 
-    #message-input-wrapper {
-        padding: 20px;
-    }
-
     .message-input {
-        border: 1px solid transparent;
-        border-radius: 10px;
-        outline: none;
-        padding: .5rem 1rem;
-        font-size: 25px;
-        width: 100%;
-        box-sizing: border-box;
-        background-color: lightgray;
-        transition: all .2s ease-in-out;
+        font-size: 1.4rem;
     }
 
-    .message-input:focus {
-        border: 1px solid purple;
-        box-sizing: border-box;
-        background-color: black;
-        color: white;
+    @media only screen and (max-width: 600px) {
+        .section-header-room-list, 
+        .section-header-user-list, 
+        #room-list-wrapper,
+        #user-list-wrapper {
+            display: none;
+        }
+
+        #chat-container {
+            grid-template-areas:
+            "chathd"
+            "chatmn";
+            grid-template-columns: 1fr;
+            grid-template-rows: 3.5rem 1fr;
+        }
+
+        #navbar {
+            bottom: 0;
+            width: 100vw;
+            height: 5rem;
+        }
+
+        #navbar-nav {
+            flex-direction: row;
+        }
+
+        .nav-link {
+            justify-content: center;
+        }
+
+        #chat-wrapper {
+            margin-bottom: 5rem;
+        }
+
+        #message-input-wrapper {
+            
+        }
+    }
+
+    @media only screen and (min-width: 600px) {
+        #navbar {
+            width: 5rem;
+            height: 100%;
+            top: 0;
+        }
+
+        #navbar:hover {
+           width: 14rem;
+        }
+
+        #navbar:hover .nav-text {
+            opacity: 1;
+            left: 5rem;
+        }
+
+        #navbar-nav {
+            flex-direction: column;
+        }        
+
+        #chat-wrapper {
+            margin-left: 7rem;
+        }
+
+        #message-input-wrapper {
+            padding: 20px;
+        }
     }
 </style>
