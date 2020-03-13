@@ -6,7 +6,7 @@ import VueAxios from './plugins/axios';
 Vue.config.productionTip = false;
 
 new Vue({
-  VueAxios,
-  vuetify,
-  render: h => h(App)
+	VueAxios,
+	vuetify,
+	render: h => h(App)
 }).$mount('#app');
