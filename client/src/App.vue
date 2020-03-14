@@ -114,21 +114,23 @@
               <div id="message-input-wrapper">
                 <v-textarea
                   append-icon="mdi-comment-text-outline"
-                  class="mx-2 message-input"
+                  class="message-input"
                   placeholder="your message"
                   rows="2"
                   no-resize
+                  auto-grow
                   v-model="newMessage"
                   @keyup.enter="sendMessage"
                   v-if="user.selectedRoom.length > 0"
                   solo
+                  hide-details
                 ></v-textarea>
               </div>
             </div>
             <div id="user-list-wrapper">
               <ul>
                 <li v-for="(user, index) in currentRoomUsers" :key="index">
-                  <span class="user-name">{{user.name}}</span>
+                  <span>{{user.name}}</span>
                 </li>
               </ul>
             </div>
@@ -330,12 +332,11 @@ export default {
 #chat-container {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  grid-template-rows: 5rem 1fr;
+  grid-template-rows: 4rem 1fr;
   grid-template-areas:
     "roomhd chathd usershd"
     "roommn chatmn usersmn";
-  height: 99%;
-  border: 1px solid black;
+  height: 100%;
   border-bottom-left-radius: 15px;
   border-top-left-radius: 15px;
 }
@@ -365,8 +366,9 @@ export default {
 }
 
 .section-header-user-list {
-  grid-area: usershd;
   background-color: var(--chat-2);
+  border-top-right-radius: 15px;
+  grid-area: usershd;
 }
 
 .room-list {
@@ -376,7 +378,6 @@ export default {
   cursor: pointer;
   margin-top: 10px;
   font-size: 1.2rem;
-  color: rgb(92, 92, 92);
 }
 
 .room-list-item {
@@ -402,16 +403,27 @@ export default {
 
 #user-list-wrapper ul {
   margin: 0;
-  padding: 0 2rem;
+  padding: 0 0.5rem;
   list-style-type: none;
   cursor: pointer;
   margin-top: 10px;
   font-size: 1.2rem;
 }
 
+#user-list-wrapper li {
+  border-radius: 5px;
+  padding: 0 1rem;
+}
+
+#user-list-wrapper li:hover {
+  color: rgb(37, 37, 37);
+  background-color: rgb(201, 201, 201);
+}
+
 #room-list-wrapper {
   grid-area: roommn;
   background-color: var(--chat-2);
+  border-bottom-left-radius: 15px;
 }
 
 #room-content {
@@ -419,28 +431,17 @@ export default {
   height: 100%;
 }
 
-chat-box {
-  float: left;
-}
-
 #user-list-wrapper {
   grid-area: usersmn;
   background-color: var(--chat-2);
-}
-
-.user-name {
-  cursor: pointer;
-}
-
-.user-name:hover {
-  color: cornflowerblue;
+  border-bottom-right-radius: 15px;
 }
 
 .message-input {
   font-size: 1.4rem;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
   .section-header-room-list,
   .section-header-user-list,
   #room-list-wrapper,
@@ -475,7 +476,7 @@ chat-box {
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 768px) {
   #navbar {
     width: 5rem;
     height: 100%;
@@ -496,7 +497,8 @@ chat-box {
   }
 
   #chat-wrapper {
-    margin-left: 7rem;
+    width: 80%;
+    margin: 20px auto;
   }
 
   #message-input-wrapper {

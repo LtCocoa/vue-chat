@@ -37,4 +37,11 @@ export default {
 </script>
 
 <style>
+.v-subheader {
+  font-size: 1.1rem !important;
+}
+
+.v-list-item__title {
+  font-size: 1.1rem !important;
+}
 </style>
