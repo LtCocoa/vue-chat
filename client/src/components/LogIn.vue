@@ -58,7 +58,7 @@ export default {
       }
 
       this.axios
-        .post("http://192.168.1.65:8080/login", {
+        .post("http://localhost:8080/login", {
           name: this.username,
           password: this.password
         })
@@ -80,7 +80,7 @@ export default {
       }
 
       this.axios
-        .post("http://192.168.1.65:8080/register", {
+        .post("http://localhost:8080/register", {
           name: this.username,
           password: this.password
         })

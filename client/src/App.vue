@@ -147,7 +147,7 @@ import ChatBox from "./components/ChatBox";
 import LogInButton from "./components/LogIn";
 import RoomList from "./components/RoomList";
 
-const client = socketIOClient("http://192.168.1.65:8080");
+const client = socketIOClient("http://localhost:8080");
 
 export default {
   name: "App",
@@ -503,6 +503,11 @@ export default {
 
   #message-input-wrapper {
     padding: 20px;
+  }
+
+  .message-input .v-input__slot {
+    max-height: 200px !important;
+    overflow: auto !important;
   }
 }
 </style>
